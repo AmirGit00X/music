@@ -1,8 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  
-  /* ============================================
-     ۱. حالت شب/روز
-     ============================================ */
+      
   const themeToggle = document.getElementById('themeToggle');
   const iconMoon = document.getElementById('iconMoon');
   const iconSun = document.getElementById('iconSun');
@@ -12,7 +9,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function applyTheme(theme) {
     document.documentElement.setAttribute('data-theme', theme);
-    
     if (theme === 'dark') {
       iconMoon.style.display = 'none';
       iconSun.style.display = 'block';
@@ -22,14 +18,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // بررسی اولیه تم
   if (savedTheme) {
     applyTheme(savedTheme);
   } else {
     applyTheme(systemDark ? 'dark' : 'light');
   }
 
-  // تغییر تم با کلیک
   themeToggle.addEventListener('click', () => {
     const current = document.documentElement.getAttribute('data-theme');
     const next = current === 'dark' ? 'light' : 'dark';
@@ -38,51 +32,38 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
 
-  /* ============================================
-     ۲. منوی کشویی (بخش‌ها)
-     ============================================ */
+  /* منوی کشویی (بخش‌ها) */
   const dropdownItem = document.getElementById('dropdownItem');
   const dropdownBtn = document.getElementById('dropdownBtn');
 
   dropdownBtn.addEventListener('click', (e) => {
     e.preventDefault();
-    e.stopPropagation(); // جلوگیری از بسته شدن منو
+    e.stopPropagation(); 
     dropdownItem.classList.toggle('open');
   });
 
-
-  /* ============================================
-     ۳. منوی موبایل (کشویی از راست)
-     ============================================ */
-  const menuToggle = document.getElementById('menuToggle');
-  const mainNav = document.getElementById('mainNav');
-  const menuOverlay = document.getElementById('menuOverlay');
-
-  // تابع برای بستن منوی اصلی
-  function closeMainMenu() {
-    mainNav.classList.remove('open');
-    menuOverlay.classList.remove('active');
-  }
-
-  // باز و بسته کردن منوی اصلی
-  menuToggle.addEventListener('click', (e) => {
-    e.stopPropagation();
-    mainNav.classList.toggle('open');
-    menuOverlay.classList.toggle('active');
-  });
-
-  // بستن منو با کلیک روی لایه تاریک
-  menuOverlay.addEventListener('click', closeMainMenu);
-
-
-  /* ============================================
-     ۴. بستن منوها با کلیک در فضای خالی
-     ============================================ */
   document.addEventListener('click', (e) => {
-    // بستن منوی کشویی در دسکتاپ
     if (dropdownItem && !dropdownItem.contains(e.target)) {
       dropdownItem.classList.remove('open');
     }
   });
+
+
+  /* منوی موبایل */
+  const menuToggle = document.getElementById('menuToggle');
+  const mainNav = document.getElementById('mainNav');
+  const menuOverlay = document.getElementById('menuOverlay');
+
+  function toggleMenu() {
+    mainNav.classList.toggle('open');
+    menuOverlay.classList.toggle('active');
+  }
+
+  menuToggle.addEventListener('click', (e) => {
+    e.stopPropagation();
+    toggleMenu();
+  });
+  
+  menuOverlay.addEventListener('click', toggleMenu);
 
 });
