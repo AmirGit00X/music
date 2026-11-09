@@ -2,15 +2,15 @@
    متغیرهای رنگ (حالت روز)
    ============================================ */
 :root {
-  --bg: #ffffff;
-  --text: #1a1a1a;
-  --text-muted: #555555;
-  --header-bg: #f8f8f8;
+  --bg: #f4f6f8; /* پس‌زمینه خاکستری خیلی روشن برای خوانایی بهتر */
+  --text: #2c3e50;
+  --text-muted: #7f8c8d;
+  --header-bg: #ffffff;
   --accent: #6b21a8;
   --accent-light: #a855f7;
-  --border: #e5e5e5;
+  --border: #e2e8f0;
   --card-bg: #ffffff;
-  --shadow: rgba(0,0,0,0.08);
+  --shadow: rgba(0,0,0,0.06);
 }
 
 /* ============================================
@@ -47,7 +47,7 @@ body {
   color: var(--text);
   transition: background 0.3s, color 0.3s;
   line-height: 1.8;
-  overflow-x: hidden; /* جلوگیری از اسکرول افقی */
+  overflow-x: hidden;
 }
 
 a {
@@ -82,7 +82,6 @@ header {
   justify-content: space-between;
 }
 
-/* بخش راست هدر (دکمه منو + لوگو) */
 .header-right {
   display: flex;
   align-items: center;
@@ -204,23 +203,21 @@ nav {
 }
 
 /* ============================================
-   دکمه مستقل تم (شب/روز)
+   دکمه کوچک مربعی تم
    ============================================ */
 .theme-toggle {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
-  font-size: 0.9rem;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
   cursor: pointer;
   border: 1px solid var(--border);
   background: var(--card-bg);
   color: var(--text);
-  font-family: inherit;
   transition: all 0.2s;
-  box-shadow: 0 2px 8px var(--shadow);
+  padding: 0;
 }
 
 .theme-toggle:hover {
@@ -230,7 +227,7 @@ nav {
 }
 
 /* ============================================
-   منوی موبایل (پنل کشویی از راست)
+   منوی موبایل
    ============================================ */
 .menu-toggle {
   display: none;
@@ -242,7 +239,6 @@ nav {
   padding: 0.2rem;
 }
 
-/* لایه تاریک پشت منو */
 .menu-overlay {
   display: none;
   position: fixed;
@@ -266,7 +262,7 @@ nav {
   nav {
     position: fixed;
     top: 0;
-    right: -280px; /* پنهان در سمت راست */
+    right: -280px;
     width: 280px;
     height: 100vh;
     flex-direction: column;
@@ -281,7 +277,7 @@ nav {
   }
 
   nav.open {
-    right: 0; /* باز شدن از راست */
+    right: 0;
   }
 
   .nav-item {
@@ -302,7 +298,6 @@ nav {
     color: var(--accent);
   }
 
-  /* منوی کشویی در موبایل (باز شدن به پایین) */
   .dropdown {
     position: static;
     opacity: 1;
@@ -326,21 +321,17 @@ nav {
     color: var(--text-muted);
   }
 
-  /* استایل دکمه تم در موبایل */
+  /* قرارگیری دکمه تم در پایین منوی موبایل */
   .theme-btn-wrapper {
-    margin-top: auto;
-    padding-top: 1.5rem;
-  }
-  
-  .theme-toggle {
-    width: 100%;
-    padding: 0.8rem;
-    border-radius: 10px;
+    margin-top: auto; /* هول دادن به پایین */
+    padding-top: 2rem;
+    display: flex;
+    justify-content: flex-end; /* قرارگیری در سمت راست/چپ بر اساس RTL */
   }
 }
 
 /* ============================================
-   دکمه‌ها
+   بقیه استایل‌ها (بدون تغییر)
    ============================================ */
 .btn {
   display: inline-block;
@@ -375,9 +366,6 @@ nav {
   color: #fff;
 }
 
-/* ============================================
-   بخش قهرمان (Hero)
-   ============================================ */
 .hero {
   position: relative;
   min-height: 80vh;
@@ -433,9 +421,6 @@ nav {
   color: var(--accent);
 }
 
-/* ============================================
-   بخش درباره ما (خلاصه)
-   ============================================ */
 .about-brief {
   padding: 4rem 0;
   text-align: center;
@@ -454,9 +439,6 @@ nav {
   font-size: 1.05rem;
 }
 
-/* ============================================
-   بخش اخبار
-   ============================================ */
 .news-preview {
   padding: 4rem 0;
   background: var(--header-bg);
@@ -515,9 +497,6 @@ nav {
   color: var(--accent-light);
 }
 
-/* ============================================
-   بخش عضویت (CTA)
-   ============================================ */
 .cta {
   padding: 4rem 0;
   text-align: center;
@@ -545,9 +524,6 @@ nav {
   background: #f0f0f0;
 }
 
-/* ============================================
-   فوتر
-   ============================================ */
 footer {
   border-top: 1px solid var(--border);
   background: var(--header-bg);
@@ -590,9 +566,6 @@ footer {
   color: var(--text-muted);
 }
 
-/* ============================================
-   ریسپانسیو
-   ============================================ */
 @media (max-width: 768px) {
   .hero h1 {
     font-size: 1.8rem;
