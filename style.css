@@ -6,13 +6,12 @@
   --text: #1e293b;          
   --text-muted: #64748b;
   --header-bg: #ffffff;     
-  --accent: #2563eb;        /* آبی سلطنتی (خالص) */
+  --accent: #2563eb;        
   --accent-light: #3b82f6;  
   --border: #e2e8f0;
   --card-bg: #ffffff;
   --shadow: rgba(0,0,0,0.05);
   
-  /* پس‌زمینه بخش بالای سایت در حالت روز */
   --hero-bg: linear-gradient(135deg, #2563eb 0%, #1e3a8a 100%);
   --hero-text: #ffffff;
   
@@ -34,7 +33,6 @@
   --card-bg: #1e293b;
   --shadow: rgba(0,0,0,0.4);
   
-  /* پس‌زمینه بخش بالای سایت در حالت شب */
   --hero-bg: linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%);
   --hero-text: #ffffff;
   
@@ -121,7 +119,6 @@ nav { display: flex; align-items: center; gap: 0.5rem; }
 .menu-overlay.active { display: block; opacity: 1; }
 
 @media (max-width: 768px) {
-  /* دکمه منو آبی می‌شود */
   .menu-toggle { display: block; color: var(--accent); }
   
   nav {
@@ -148,11 +145,11 @@ nav { display: flex; align-items: center; gap: 0.5rem; }
 }
 
 /* ============================================
-   بخش قهرمان (Hero) - ارتفاع استاندارد شد
+   بخش قهرمان (Hero) 
    ============================================ */
 .hero {
   position: relative; 
-  min-height: 400px; /* ارتفاع استاندارد به جای 70vh */
+  min-height: 400px; 
   display: flex; align-items: center; justify-content: center; text-align: center;
   background: var(--hero-bg);
   color: var(--hero-text);
@@ -212,7 +209,7 @@ footer { border-top: 1px solid var(--border); background: var(--header-bg); tran
 .footer-bottom { text-align: center; padding: 1rem; border-top: 1px solid var(--border); font-size: 0.85rem; color: var(--text-muted); }
 
 @media (max-width: 768px) {
-  .hero { min-height: 320px; padding: 2rem 0; } /* ارتفاع کمتر در موبایل */
+  .hero { min-height: 320px; padding: 2rem 0; } 
   .hero h1 { font-size: 1.8rem; }
   .hero p { font-size: 1rem; }
   .cta h2 { font-size: 1.5rem; }
