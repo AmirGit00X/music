@@ -8,7 +8,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const iconSun = document.getElementById('iconSun');
 
   const savedTheme = localStorage.getItem('theme');
-  // بررسی اینکه آیا گوشی در حالت شب است یا نه
   const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
   function applyTheme(theme) {
@@ -23,13 +22,14 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // اگر کاربر قبلا انتخاب کرده همان را لود کن، در غیر این صورت از گوشی تبعیت کن
+  // بررسی اولیه تم
   if (savedTheme) {
     applyTheme(savedTheme);
   } else {
     applyTheme(systemDark ? 'dark' : 'light');
   }
 
+  // تغییر تم با کلیک
   themeToggle.addEventListener('click', () => {
     const current = document.documentElement.getAttribute('data-theme');
     const next = current === 'dark' ? 'light' : 'dark';
@@ -46,15 +46,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   dropdownBtn.addEventListener('click', (e) => {
     e.preventDefault();
-    e.stopPropagation();
+    e.stopPropagation(); // جلوگیری از بسته شدن منو
     dropdownItem.classList.toggle('open');
-  });
-
-  // بستن منو وقتی بیرون از آن کلیک می‌شود
-  document.addEventListener('click', (e) => {
-    if (dropdownItem && !dropdownItem.contains(e.target)) {
-      dropdownItem.classList.remove('open');
-    }
   });
 
 
@@ -65,16 +58,31 @@ document.addEventListener("DOMContentLoaded", () => {
   const mainNav = document.getElementById('mainNav');
   const menuOverlay = document.getElementById('menuOverlay');
 
-  function toggleMenu() {
-    mainNav.classList.toggle('open');
-    menuOverlay.classList.toggle('active');
+  // تابع برای بستن منوی اصلی
+  function closeMainMenu() {
+    mainNav.classList.remove('open');
+    menuOverlay.classList.remove('active');
   }
 
+  // باز و بسته کردن منوی اصلی
   menuToggle.addEventListener('click', (e) => {
     e.stopPropagation();
-    toggleMenu();
+    mainNav.classList.toggle('open');
+    menuOverlay.classList.toggle('active');
   });
-  
-  menuOverlay.addEventListener('click', toggleMenu);
+
+  // بستن منو با کلیک روی لایه تاریک
+  menuOverlay.addEventListener('click', closeMainMenu);
+
+
+  /* ============================================
+     ۴. بستن منوها با کلیک در فضای خالی
+     ============================================ */
+  document.addEventListener('click', (e) => {
+    // بستن منوی کشویی در دسکتاپ
+    if (dropdownItem && !dropdownItem.contains(e.target)) {
+      dropdownItem.classList.remove('open');
+    }
+  });
 
 });
