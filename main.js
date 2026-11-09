@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   
   // ============================================
-  // ۱. مدیریت منوی موبایل (باز و بسته شدن پنل)
+  // ۱. مدیریت منوی موبایل
   // ============================================
   const mobileMenuBtn = document.getElementById('mobileMenuBtn');
   const mainNav = document.getElementById('mainNav');
@@ -16,15 +16,14 @@ document.addEventListener("DOMContentLoaded", () => {
   overlay.addEventListener('click', toggleMobileMenu);
 
   // ============================================
-  // ۲. زیرمنوهای موبایل (باز شدن با کلیک)
+  // ۲. زیرمنوهای موبایل
   // ============================================
   const hasSubmenus = document.querySelectorAll('.has-submenu > a');
 
   hasSubmenus.forEach(link => {
     link.addEventListener('click', (e) => {
-      // اگر در حالت موبایل بودیم، از رفتن به لینک جلوگیری کن و زیرمنو را باز کن
       if (window.innerWidth <= 768) {
-        e.preventDefault();
+        e.preventDefault(); // جلوگیری از رفرش صفحه
         const parentLi = link.parentElement;
         parentLi.classList.toggle('active');
         
@@ -37,11 +36,10 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // ============================================
-  // ۳. تغییر تم شب و روز
+  // ۳. تغییر تم
   // ============================================
   const themeToggle = document.getElementById('themeToggle');
   
-  // بارگذاری تم ذخیره شده
   const savedTheme = localStorage.getItem('theme') || 'light';
   document.documentElement.setAttribute('data-theme', savedTheme);
   updateThemeText(savedTheme);
