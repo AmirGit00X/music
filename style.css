@@ -1,0 +1,556 @@
+/* ============================================
+   متغیرهای رنگ (حالت روز)
+   ============================================ */
+:root {
+  --bg: #ffffff;
+  --text: #1a1a1a;
+  --text-muted: #555555;
+  --header-bg: #f8f8f8;
+  --accent: #6b21a8;
+  --accent-light: #a855f7;
+  --border: #e5e5e5;
+  --card-bg: #ffffff;
+  --shadow: rgba(0,0,0,0.08);
+}
+
+/* ============================================
+   حالت شب
+   ============================================ */
+[data-theme="dark"] {
+  --bg: #121212;
+  --text: #e5e5e5;
+  --text-muted: #aaaaaa;
+  --header-bg: #1e1e1e;
+  --accent: #a855f7;
+  --accent-light: #c084fc;
+  --border: #2e2e2e;
+  --card-bg: #1e1e1e;
+  --shadow: rgba(0,0,0,0.4);
+}
+
+/* ============================================
+   ریست و پایه
+   ============================================ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Vazirmatn', Tahoma, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  transition: background 0.3s, color 0.3s;
+  line-height: 1.8;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* ============================================
+   هدر
+   ============================================ */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: var(--header-bg);
+  border-bottom: 1px solid var(--border);
+  transition: background 0.3s, border-color 0.3s;
+}
+
+.header-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0.8rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--accent);
+}
+
+.logo img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.logo-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.3;
+}
+
+.logo-text small {
+  font-size: 0.7rem;
+  font-weight: 400;
+  color: var(--text);
+  opacity: 0.7;
+}
+
+/* ============================================
+   منوی ناوبری
+   ============================================ */
+nav {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.nav-item {
+  position: relative;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.5rem 0.8rem;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  border: none;
+  background: transparent;
+  color: var(--text);
+  font-family: inherit;
+}
+
+.nav-link:hover {
+  background: var(--accent);
+  color: #fff;
+}
+
+.nav-link .arrow {
+  font-size: 0.7rem;
+  transition: transform 0.2s;
+}
+
+.nav-item.open .nav-link .arrow {
+  transform: rotate(180deg);
+}
+
+/* ============================================
+   لیست کشویی
+   ============================================ */
+.dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  min-width: 200px;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  box-shadow: 0 8px 24px var(--shadow);
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  transition: all 0.2s ease;
+  z-index: 100;
+}
+
+.nav-item.open .dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.dropdown a {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 0.8rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  transition: background 0.2s;
+  white-space: nowrap;
+}
+
+.dropdown a:hover {
+  background: var(--accent);
+  color: #fff;
+}
+
+.dropdown .divider {
+  height: 1px;
+  background: var(--border);
+  margin: 0.4rem 0;
+}
+
+/* دکمه تم */
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.6rem 0.8rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  color: var(--text);
+  font-family: inherit;
+  transition: background 0.2s;
+}
+
+.theme-toggle:hover {
+  background: var(--accent);
+  color: #fff;
+}
+
+/* ============================================
+   منوی موبایل
+   ============================================ */
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--text);
+}
+
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: block;
+  }
+
+  nav {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    left: 0;
+    flex-direction: column;
+    background: var(--header-bg);
+    border-bottom: 1px solid var(--border);
+    padding: 1rem;
+    display: none;
+    box-shadow: 0 8px 24px var(--shadow);
+  }
+
+  nav.open {
+    display: flex;
+  }
+
+  .nav-item {
+    width: 100%;
+  }
+
+  .nav-link {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .dropdown {
+    position: static;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    box-shadow: none;
+    border: none;
+    margin-top: 0;
+    padding-right: 1rem;
+    display: none;
+  }
+
+  .nav-item.open .dropdown {
+    display: block;
+  }
+}
+
+/* ============================================
+   دکمه‌ها
+   ============================================ */
+.btn {
+  display: inline-block;
+  padding: 0.7rem 1.6rem;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: 2px solid transparent;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background: var(--accent-light);
+  transform: translateY(-2px);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.btn-outline:hover {
+  background: var(--accent);
+  color: #fff;
+}
+
+/* ============================================
+   بخش قهرمان (Hero)
+   ============================================ */
+.hero {
+  position: relative;
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: linear-gradient(135deg, #6b21a8 0%, #1e1b4b 100%);
+  color: #fff;
+  overflow: hidden;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+  padding: 2rem 1.5rem;
+}
+
+.hero h1 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+  line-height: 1.4;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  opacity: 0.9;
+  margin-bottom: 2rem;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.hero .btn-outline {
+  color: #fff;
+  border-color: #fff;
+}
+
+.hero .btn-outline:hover {
+  background: #fff;
+  color: var(--accent);
+}
+
+/* ============================================
+   بخش درباره ما (خلاصه)
+   ============================================ */
+.about-brief {
+  padding: 4rem 0;
+  text-align: center;
+}
+
+.about-brief h2 {
+  font-size: 1.8rem;
+  color: var(--accent);
+  margin-bottom: 1rem;
+}
+
+.about-brief p {
+  max-width: 700px;
+  margin: 0 auto 1.5rem;
+  color: var(--text-muted);
+  font-size: 1.05rem;
+}
+
+/* ============================================
+   بخش اخبار
+   ============================================ */
+.news-preview {
+  padding: 4rem 0;
+  background: var(--header-bg);
+  transition: background 0.3s;
+}
+
+.news-preview h2 {
+  font-size: 1.8rem;
+  color: var(--accent);
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.news-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.news-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.news-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px var(--shadow);
+}
+
+.news-card-body {
+  padding: 1.5rem;
+}
+
+.news-card h3 {
+  font-size: 1.1rem;
+  color: var(--accent);
+  margin-bottom: 0.6rem;
+}
+
+.news-card p {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+}
+
+.read-more {
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.read-more:hover {
+  color: var(--accent-light);
+}
+
+/* ============================================
+   بخش عضویت (CTA)
+   ============================================ */
+.cta {
+  padding: 4rem 0;
+  text-align: center;
+  background: linear-gradient(135deg, #6b21a8 0%, #1e1b4b 100%);
+  color: #fff;
+}
+
+.cta h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.cta p {
+  font-size: 1.1rem;
+  opacity: 0.9;
+  margin-bottom: 1.5rem;
+}
+
+.cta .btn-primary {
+  background: #fff;
+  color: var(--accent);
+}
+
+.cta .btn-primary:hover {
+  background: #f0f0f0;
+}
+
+/* ============================================
+   فوتر
+   ============================================ */
+footer {
+  border-top: 1px solid var(--border);
+  background: var(--header-bg);
+  transition: background 0.3s;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+}
+
+.footer-col h4 {
+  color: var(--accent);
+  margin-bottom: 0.8rem;
+  font-size: 1rem;
+}
+
+.footer-col a,
+.footer-col p {
+  display: block;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin-bottom: 0.4rem;
+  transition: color 0.2s;
+}
+
+.footer-col a:hover {
+  color: var(--accent);
+}
+
+.footer-bottom {
+  text-align: center;
+  padding: 1rem;
+  border-top: 1px solid var(--border);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+/* ============================================
+   ریسپانسیو
+   ============================================ */
+@media (max-width: 768px) {
+  .hero h1 {
+    font-size: 1.8rem;
+  }
+
+  .hero p {
+    font-size: 1rem;
+  }
+
+  .hero {
+    min-height: 70vh;
+  }
+
+  .cta h2 {
+    font-size: 1.5rem;
+  }
+}
