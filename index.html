@@ -8,30 +8,33 @@
   <!-- فونت وزیرمتن -->
   <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet">
 
-  <!-- فایل CSS (بدون اسلش و بدون پوشه) -->
+  <!-- فایل CSS -->
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+  <!-- لایه تاریک پشت منو در موبایل -->
+  <div class="menu-overlay" id="menuOverlay"></div>
 
   <!-- ================= هدر ================= -->
   <header>
     <div class="header-container">
 
-      <!-- لوگو -->
-      <a href="index.html" class="logo">
-        <img src="logo.png" alt="لوگو کانون موسیقی" onerror="this.style.display='none'">
-        <div class="logo-text">
-          کانون موسیقی
-          <small>دانشگاه علوم پزشکی اراک</small>
-        </div>
-      </a>
+      <!-- سمت راست: لوگو و دکمه منو -->
+      <div class="header-right">
+        <button class="menu-toggle" id="menuToggle" aria-label="منو">☰</button>
+        <a href="index.html" class="logo">
+          <img src="logo.png" alt="لوگو کانون موسیقی" onerror="this.style.display='none'">
+          <div class="logo-text">
+            کانون موسیقی
+            <small>دانشگاه علوم پزشکی اراک</small>
+          </div>
+        </a>
+      </div>
 
-      <!-- دکمه منوی موبایل -->
-      <button class="menu-toggle" id="menuToggle" aria-label="منو">☰</button>
-
-      <!-- ناوبری -->
+      <!-- ناوبری (در دسکتاپ وسط/چپ، در موبایل پنل کناری) -->
       <nav id="mainNav">
-
+        
         <div class="nav-item">
           <a href="index.html" class="nav-link">خانه</a>
         </div>
@@ -40,7 +43,7 @@
           <a href="about.html" class="nav-link">درباره ما</a>
         </div>
 
-        <!-- منوی کشویی -->
+        <!-- منوی کشویی بخش‌ها -->
         <div class="nav-item" id="dropdownItem">
           <button class="nav-link" id="dropdownBtn" aria-expanded="false">
             بخش‌ها
@@ -52,17 +55,19 @@
             <a href="news.html">اخبار و رویدادها</a>
             <a href="learning.html">آموزش</a>
             <a href="contact.html">تماس و عضویت</a>
-            <div class="divider"></div>
-            <!-- حالت شب/روز -->
-            <button class="theme-toggle" id="themeToggle">
-              <span id="themeIcon">🌙</span>
-              <span id="themeLabel">حالت شب</span>
-            </button>
           </div>
         </div>
 
         <div class="nav-item">
           <a href="contact.html" class="nav-link">عضویت</a>
+        </div>
+
+        <!-- دکمه مستقل حالت شب/روز -->
+        <div class="nav-item theme-btn-wrapper">
+          <button class="theme-toggle" id="themeToggle">
+            <span id="themeIcon">🌙</span>
+            <span id="themeLabel">حالت شب</span>
+          </button>
         </div>
 
       </nav>
@@ -159,7 +164,7 @@
     </div>
   </footer>
 
-  <!-- فایل JavaScript (بدون اسلش و بدون پوشه) -->
+  <!-- فایل JavaScript -->
   <script src="main.js"></script>
 
 </body>
