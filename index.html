@@ -6,18 +6,19 @@
   <title>کانون موسیقی دانشگاه علوم پزشکی اراک</title>
   
   <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet">
-
-  <!-- لینک به فایل CSS -->
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+  <!-- لایه تاریک پشت منو (فقط در موبایل) -->
   <div class="menu-overlay" id="menuOverlay"></div>
 
   <header>
     <div class="header-container">
       <div class="header-right">
-        <button class="menu-toggle" id="menuToggle" aria-label="منو">☰</button>
+        <!-- دکمه منوی موبایل -->
+        <button class="menu-toggle" id="mobileMenuBtn" aria-label="باز کردن منو">☰</button>
+        
         <a href="index.html" class="logo">
           <img src="logo.png" alt="لوگو" onerror="this.style.display='none'">
           <div class="logo-text">
@@ -27,20 +28,18 @@
         </a>
       </div>
 
-      <nav id="mainNav">
-        <div class="nav-item">
-          <a href="index.html" class="nav-link">خانه</a>
-        </div>
-        <div class="nav-item">
-          <a href="about.html" class="nav-link">درباره ما</a>
-        </div>
+      <!-- منوی اصلی (در موبایل از راست باز می‌شود) -->
+      <nav id="navMenu">
+        <a href="index.html" class="nav-link">خانه</a>
+        <a href="about.html" class="nav-link">درباره ما</a>
 
-        <div class="nav-item" id="dropdownItem">
-          <button type="button" class="nav-link" id="dropdownBtn">
+        <!-- ساختار جدید منوی کشویی -->
+        <div class="dropdown-container">
+          <button class="nav-link dropdown-btn" id="dropBtn">
             بخش‌ها
             <span class="arrow">▼</span>
           </button>
-          <div class="dropdown" id="dropdownMenu">
+          <div class="dropdown-menu" id="dropMenu">
             <a href="members.html">اعضا</a>
             <a href="gallery.html">آثار و اجراها</a>
             <a href="news.html">اخبار و رویدادها</a>
@@ -49,12 +48,11 @@
           </div>
         </div>
 
-        <div class="nav-item">
-          <a href="contact.html" class="nav-link">عضویت</a>
-        </div>
+        <a href="contact.html" class="nav-link">عضویت</a>
 
-        <div class="nav-item theme-btn-wrapper">
-          <button type="button" class="theme-toggle" id="themeToggle" title="تغییر حالت شب/روز">
+        <!-- دکمه تغییر تم -->
+        <div class="theme-wrapper">
+          <button type="button" class="theme-toggle" id="themeBtn" title="تغییر حالت شب/روز">
             <svg id="iconMoon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
             <svg id="iconSun" style="display: none;" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
           </button>
@@ -63,6 +61,7 @@
     </div>
   </header>
 
+  <!-- محتوای صفحه -->
   <section class="hero">
     <div class="hero-content">
       <h1>جایی برای نفس کشیدن بین درس و موسیقی</h1>
@@ -147,7 +146,6 @@
     </div>
   </footer>
 
-  <!-- لینک به فایل JS -->
   <script src="main.js"></script>
 </body>
 </html>
