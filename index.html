@@ -6,7 +6,226 @@
   <title>کانون موسیقی دانشگاه علوم پزشکی اراک</title>
   
   <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+
+  <style>
+    /* ============================================
+       متغیرهای رنگ
+       ============================================ */
+    :root {
+      --bg: #f8fafc;
+      --text: #1e293b;
+      --text-muted: #64748b;
+      --header-bg: #ffffff;
+      --accent: #2563eb;        
+      --accent-light: #3b82f6;  
+      --border: #e2e8f0;
+      --card-bg: #ffffff;
+      --shadow: rgba(0,0,0,0.08);
+      --hero-bg: linear-gradient(135deg, #2563eb 0%, #1e3a8a 100%);
+      --hero-text: #ffffff;
+    }
+
+    [data-theme="dark"] {
+      --bg: #0f172a;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --header-bg: #1e293b;
+      --accent: #3b82f6;        
+      --accent-light: #60a5fa;
+      --border: #334155;
+      --card-bg: #1e293b;
+      --shadow: rgba(0,0,0,0.4);
+      --hero-bg: linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%);
+      --hero-text: #ffffff;
+    }
+
+    /* ============================================
+       ریست و پایه
+       ============================================ */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Vazirmatn', Tahoma, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      transition: background 0.3s, color 0.3s;
+      line-height: 1.8;
+      overflow-x: hidden;
+    }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+
+    /* ============================================
+       هدر
+       ============================================ */
+    header {
+      position: sticky; top: 0; z-index: 1000;
+      background: var(--header-bg);
+      border-bottom: 1px solid var(--border);
+      transition: background 0.3s, border-color 0.3s;
+    }
+    .header-container {
+      max-width: 1200px; margin: 0 auto; padding: 0.8rem 1.5rem;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 80px; /* ارتفاع استاندارد هدر */
+    }
+    .header-right { display: flex; align-items: center; gap: 1rem; }
+
+    /* لوگو */
+    .logo { display: flex; align-items: center; gap: 0.75rem; }
+    .logo img { width: 45px; height: 45px; border-radius: 50%; object-fit: cover; }
+    .logo-text { display: flex; flex-direction: column; line-height: 1.3; }
+    .logo-text strong { font-size: 1.15rem; font-weight: 800; color: var(--accent); }
+    .logo-text small { font-size: 0.75rem; font-weight: 500; color: var(--text-muted); }
+
+    /* ============================================
+       منوی ناوبری اصلی (دسکتاپ) - آبشاری
+       ============================================ */
+    .main-nav > ul {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .main-nav > ul > li {
+      position: relative;
+    }
+    .main-nav > ul > li > a {
+      display: flex; align-items: center; gap: 0.4rem;
+      padding: 0.6rem 1rem; border-radius: 8px;
+      font-size: 0.95rem; font-weight: 600;
+      color: var(--text); transition: background 0.2s, color 0.2s;
+    }
+    .main-nav > ul > li > a:hover {
+      background: var(--accent); color: #fff;
+    }
+
+    /* منوی کشویی (زیرمنو) */
+    .submenu {
+      position: absolute; top: 100%; right: 0;
+      min-width: 220px; background: var(--card-bg);
+      border: 1px solid var(--border); border-radius: 10px;
+      box-shadow: 0 8px 24px var(--shadow);
+      padding: 0.5rem; margin-top: 0.5rem;
+      
+      opacity: 0; visibility: hidden; transform: translateY(-10px);
+      transition: all 0.2s ease; z-index: 100;
+    }
+    .submenu li a {
+      display: block; padding: 0.6rem 1rem;
+      border-radius: 6px; font-size: 0.9rem; font-weight: 500;
+      color: var(--text-muted); transition: background 0.2s, color 0.2s;
+    }
+    .submenu li a:hover {
+      background: var(--bg); color: var(--accent);
+    }
+
+    /* نمایش زیرمنو با هاور */
+    .has-submenu:hover .submenu {
+      opacity: 1; visibility: visible; transform: translateY(0);
+    }
+    .has-submenu:hover > a .arrow { transform: rotate(180deg); }
+    .arrow { font-size: 0.7rem; transition: transform 0.2s; }
+
+    /* دکمه تم */
+    .header-left { display: flex; align-items: center; }
+    .theme-btn {
+      padding: 0.5rem 1rem; border-radius: 8px;
+      border: 1px solid var(--border); background: var(--card-bg);
+      color: var(--text); cursor: pointer; font-family: inherit; font-size: 0.9rem; font-weight: 600;
+      transition: all 0.2s;
+    }
+    .theme-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ============================================
+       استایل‌های موبایل
+       ============================================ */
+    .menu-toggle {
+      display: none; background: none; border: none;
+      font-size: 1.6rem; cursor: pointer; color: var(--accent); padding: 0;
+    }
+    .overlay {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,0.5); z-index: 999;
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .overlay.active { display: block; opacity: 1; }
+
+    @media (max-width: 768px) {
+      .header-container { height: 70px; padding: 0.5rem 1rem; }
+      .logo img { width: 35px; height: 35px; }
+      .logo-text strong { font-size: 1rem; }
+      .logo-text small { font-size: 0.65rem; }
+      
+      .menu-toggle { display: block; }
+      
+      /* پنل منوی موبایل */
+      .main-nav {
+        position: fixed; top: 0; right: -100%; width: 280px; height: 100vh;
+        background: var(--card-bg); border-left: 1px solid var(--border);
+        padding: 5rem 1.5rem 2rem; z-index: 1000;
+        transition: right 0.3s ease; overflow-y: auto;
+      }
+      .main-nav.active { right: 0; }
+      
+      .main-nav > ul {
+        flex-direction: column; align-items: stretch; gap: 0;
+      }
+      .main-nav > ul > li > a {
+        padding: 1rem 0.5rem; border-bottom: 1px solid var(--border);
+        border-radius: 0; justify-content: space-between;
+      }
+      .main-nav > ul > li > a:hover { background: transparent; color: var(--accent); }
+
+      /* زیرمنوها در موبایل */
+      .submenu {
+        position: static; opacity: 1; visibility: visible; transform: none;
+        box-shadow: none; border: none; padding: 0 1rem;
+        max-height: 0; overflow: hidden; transition: max-height 0.3s ease;
+        display: block; background: transparent;
+      }
+      .submenu.active { max-height: 300px; }
+      
+      .submenu li a { padding: 0.6rem 0.5rem; color: var(--text-muted); font-weight: 500; }
+      .submenu li a:hover { background: transparent; color: var(--accent); }
+      
+      .has-submenu.active > a .arrow { transform: rotate(180deg); }
+    }
+
+    /* ============================================
+       بقیه استایل‌های صفحه
+       ============================================ */
+    .hero {
+      position: relative; min-height: 400px;
+      display: flex; align-items: center; justify-content: center; text-align: center;
+      background: var(--hero-bg); color: var(--hero-text);
+      transition: background 0.3s; padding: 3rem 0;
+    }
+    .hero-content { position: relative; z-index: 2; max-width: 800px; padding: 2rem 1.5rem; }
+    .hero h1 { font-size: 2.5rem; font-weight: 800; margin-bottom: 1rem; line-height: 1.4; }
+    .hero p { font-size: 1.2rem; opacity: 0.9; margin-bottom: 2rem; }
+    .hero-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+    .btn { display: inline-block; padding: 0.7rem 1.6rem; border-radius: 10px; font-size: 0.95rem; font-weight: 600; font-family: inherit; cursor: pointer; transition: all 0.2s; border: 2px solid transparent; }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-primary:hover { background: var(--accent-light); transform: translateY(-2px); }
+    .btn-outline { background: transparent; color: var(--text); border-color: var(--text); }
+    .btn-outline:hover { background: var(--text); color: var(--bg); }
+    .hero .btn-outline { color: #fff; border-color: #fff; }
+    .hero .btn-outline:hover { background: #fff; color: var(--accent); }
+
+    .about-brief { padding: 4rem 0; text-align: center; }
+    .about-brief h2 { font-size: 1.8rem; color: var(--accent); margin-bottom: 1rem; }
+    .about-brief p { max-width: 700px; margin: 0 auto 1.5rem; color: var(--text-muted); font-size: 1.05rem; }
+    .about-brief .btn-outline { color: var(--accent); border-color: var(--accent); }
+    .about-brief .btn-outline:hover { background: var(--accent); color: #fff; }
+
+    @media (max-width: 768px) {
+      .hero { min-height: 320px; padding: 2rem 0; } 
+      .hero h1 { font-size: 1.8rem; }
+      .hero p { font-size: 1rem; }
+    }
+  </style>
 </head>
 <body>
 
@@ -20,19 +239,18 @@
         <a href="index.html" class="logo">
           <img src="logo.png" alt="لوگو" onerror="this.style.display='none'">
           <div class="logo-text">
-            کانون موسیقی
+            <strong>کانون موسیقی</strong>
             <small>دانشگاه علوم پزشکی اراک</small>
           </div>
         </a>
       </div>
 
-      <!-- منوی اصلی (آبشاری با CSS در دسکتاپ) -->
+      <!-- منوی اصلی (آبشاری) -->
       <nav class="main-nav" id="mainNav">
         <ul>
           <li><a href="index.html">خانه</a></li>
           <li><a href="about.html">درباره ما</a></li>
           
-          <!-- منوی آبشاری -->
           <li class="has-submenu">
             <a href="#">بخش‌ها <span class="arrow">▼</span></a>
             <ul class="submenu">
@@ -48,7 +266,7 @@
         </ul>
       </nav>
 
-      <!-- بخش چپ: دکمه تم -->
+      <!-- دکمه تم -->
       <div class="header-left">
         <button class="theme-btn" id="themeToggle">تغییر تم</button>
       </div>
@@ -79,6 +297,67 @@
     </div>
   </section>
 
-  <script src="main.js"></script>
+  <!-- ================= اسکریپت (JavaScript) ================= -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      
+      // ۱. مدیریت منوی موبایل
+      const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+      const mainNav = document.getElementById('mainNav');
+      const overlay = document.getElementById('overlay');
+
+      function toggleMobileMenu() {
+        mainNav.classList.toggle('active');
+        overlay.classList.toggle('active');
+      }
+
+      mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+      overlay.addEventListener('click', toggleMobileMenu);
+
+      // ۲. باز و بسته کردن زیرمنوها در موبایل
+      const hasSubmenus = document.querySelectorAll('.has-submenu > a');
+
+      hasSubmenus.forEach(link => {
+        link.addEventListener('click', (e) => {
+          if (window.innerWidth <= 768) {
+            e.preventDefault(); 
+            const parentLi = link.parentElement;
+            parentLi.classList.toggle('active');
+            
+            const submenu = parentLi.querySelector('.submenu');
+            if (submenu) {
+              submenu.classList.toggle('active');
+            }
+          }
+        });
+      });
+
+      // ۳. تغییر تم شب و روز
+      const themeToggle = document.getElementById('themeToggle');
+      
+      const savedTheme = localStorage.getItem('theme') || 'light';
+      document.documentElement.setAttribute('data-theme', savedTheme);
+      updateThemeText(savedTheme);
+
+      themeToggle.addEventListener('click', () => {
+        const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        const newTheme = isDark ? 'light' : 'dark';
+        
+        document.documentElement.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        updateThemeText(newTheme);
+      });
+
+      function updateThemeText(theme) {
+        if (theme === 'dark') {
+          themeToggle.textContent = "حالت روز ☀️";
+        } else {
+          themeToggle.textContent = "حالت شب 🌙";
+        }
+      }
+
+    });
+  </script>
+
 </body>
 </html>
