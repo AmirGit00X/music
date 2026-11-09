@@ -1,21 +1,20 @@
 /* ============================================
-   متغیرهای رنگ (حالت روز - کاملاً روشن)
+   متغیرهای رنگ (حالت روز - تم آبی نفتی)
    ============================================ */
 :root {
-  --bg: #ffffff;            /* پس‌زمینه کاملاً سفید */
-  --text: #1e293b;          /* متن تیره خوانا */
+  --bg: #f8fafc;            /* پس‌زمینه خاکستری خیلی روشن */
+  --text: #1e293b;          
   --text-muted: #64748b;
-  --header-bg: #f8fafc;     /* هدر خیلی روشن */
-  --accent: #7c3aed;        /* بنفش شاداب برای روز */
-  --accent-light: #a78bfa;
+  --header-bg: #ffffff;     
+  --accent: #0f766e;        /* آبی نفتی رسمی */
+  --accent-light: #14b8a6;  
   --border: #e2e8f0;
   --card-bg: #ffffff;
   --shadow: rgba(0,0,0,0.05);
   
-  /* متغیرهای اختصاصی بخش‌های رنگی */
-  --hero-bg: linear-gradient(135deg, #a78bfa 0%, #7c3aed 100%); /* گرادیانت بنفش روشن */
+  --hero-bg: linear-gradient(135deg, #0f766e 0%, #0f172a 100%); /* گرادیانت آبی نفتی به سرمه‌ای */
   --hero-text: #ffffff;
-  --cta-bg: #f3f4f6;        /* بخش دعوت به عضویت در روز کاملاً روشن */
+  --cta-bg: #f1f5f9;        
   --cta-text: #1e293b;
 }
 
@@ -27,16 +26,16 @@
   --text: #f8fafc;
   --text-muted: #94a3b8;
   --header-bg: #1e293b;
-  --accent: #a855f7;
-  --accent-light: #c084fc;
+  --accent: #14b8a6;
+  --accent-light: #2dd4bf;
   --border: #334155;
   --card-bg: #1e293b;
   --shadow: rgba(0,0,0,0.4);
   
-  --hero-bg: linear-gradient(135deg, #4c1d95 0%, #1e1b4b 100%);
+  --hero-bg: linear-gradient(135deg, #0f766e 0%, #020617 100%);
   --hero-text: #ffffff;
-  --cta-bg: linear-gradient(135deg, #4c1d95 0%, #1e1b4b 100%);
-  --cta-text: #ffffff;
+  --cta-bg: #1e293b;
+  --cta-text: #f8fafc;
 }
 
 /* ============================================
@@ -133,19 +132,26 @@ nav { display: flex; align-items: center; gap: 0.5rem; }
   .nav-item { width: 100%; }
   .nav-link { width: 100%; justify-content: space-between; font-size: 1.05rem; padding: 0.8rem 0.5rem; border-bottom: 1px solid var(--border); border-radius: 0; }
   .nav-link:hover { background: transparent; color: var(--accent); }
-  .dropdown { position: static; opacity: 1; visibility: visible; transform: none; box-shadow: none; border: none; margin-top: 0; padding-right: 1rem; display: none; background: transparent; }
+  
+  /* منوی کشویی در موبایل */
+  .dropdown { 
+    position: static; opacity: 1; visibility: visible; transform: none; 
+    box-shadow: none; border: none; margin-top: 0; padding-right: 1rem; 
+    display: none; background: transparent; 
+  }
   .nav-item.open .dropdown { display: block; }
   .dropdown a { border-bottom: none; padding: 0.6rem 0.5rem; color: var(--text-muted); }
+  
   .theme-btn-wrapper { margin-top: auto; padding-top: 2rem; display: flex; justify-content: flex-start; }
 }
 
 /* ============================================
-   بخش قهرمان (Hero) - اصلاح شد
+   بخش قهرمان (Hero)
    ============================================ */
 .hero {
   position: relative; min-height: 70vh;
   display: flex; align-items: center; justify-content: center; text-align: center;
-  background: var(--hero-bg); /* در روز بنفش روشن، در شب تیره */
+  background: var(--hero-bg);
   color: var(--hero-text);
   transition: background 0.3s;
   padding: 3rem 0;
@@ -175,7 +181,7 @@ nav { display: flex; align-items: center; gap: 0.5rem; }
 .about-brief .btn-outline { color: var(--accent); border-color: var(--accent); }
 .about-brief .btn-outline:hover { background: var(--accent); color: #fff; }
 
-.news-preview { padding: 4rem 0; background: var(--header-bg); transition: background 0.3s; }
+.news-preview { padding: 4rem 0; background: var(--header-bg); transition: background 0.3s; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
 .news-preview h2 { font-size: 1.8rem; color: var(--accent); text-align: center; margin-bottom: 2rem; }
 .news-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
 .news-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; transition: transform 0.2s, box-shadow 0.2s; }
@@ -188,9 +194,8 @@ nav { display: flex; align-items: center; gap: 0.5rem; }
 
 .cta {
   padding: 4rem 0; text-align: center;
-  background: var(--cta-bg); /* در روز روشن، در شب بنفش تیره */
+  background: var(--cta-bg);
   color: var(--cta-text); transition: background 0.3s, color 0.3s;
-  border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
 }
 .cta h2 { font-size: 2rem; margin-bottom: 1rem; color: var(--accent); }
 .cta p { font-size: 1.1rem; margin-bottom: 1.5rem; opacity: 0.8; }
