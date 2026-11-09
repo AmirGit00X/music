@@ -1,49 +1,52 @@
 document.addEventListener("DOMContentLoaded", () => {
   
   // ============================================
-  // ۱. مدیریت منو (موبایل و دسکتاپ)
+  // ۱. مدیریت منوی موبایل (باز و بسته شدن پنل)
   // ============================================
   const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-  const closeMenuBtn = document.getElementById('closeMenuBtn');
-  const sidebar = document.getElementById('sidebar');
+  const mainNav = document.getElementById('mainNav');
   const overlay = document.getElementById('overlay');
 
-  function openMenu() {
-    sidebar.classList.add('active');
-    overlay.classList.add('active');
+  function toggleMobileMenu() {
+    mainNav.classList.toggle('active');
+    overlay.classList.toggle('active');
   }
 
-  function closeMenu() {
-    sidebar.classList.remove('active');
-    overlay.classList.remove('active');
-  }
-
-  mobileMenuBtn.addEventListener('click', openMenu);
-  closeMenuBtn.addEventListener('click', closeMenu);
-  overlay.addEventListener('click', closeMenu);
-
+  mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+  overlay.addEventListener('click', toggleMobileMenu);
 
   // ============================================
-  // ۲. منوی کشویی (بخش‌ها) - Accordion
+  // ۲. زیرمنوهای موبایل (باز شدن با کلیک)
   // ============================================
-  const accordionBtn = document.getElementById('accordionBtn');
-  
-  accordionBtn.addEventListener('click', () => {
-    accordionBtn.classList.toggle('active');
+  const hasSubmenus = document.querySelectorAll('.has-submenu > a');
+
+  hasSubmenus.forEach(link => {
+    link.addEventListener('click', (e) => {
+      // اگر در حالت موبایل بودیم، از رفتن به لینک جلوگیری کن و زیرمنو را باز کن
+      if (window.innerWidth <= 768) {
+        e.preventDefault();
+        const parentLi = link.parentElement;
+        parentLi.classList.toggle('active');
+        
+        const submenu = parentLi.querySelector('.submenu');
+        if (submenu) {
+          submenu.classList.toggle('active');
+        }
+      }
+    });
   });
-
 
   // ============================================
   // ۳. تغییر تم شب و روز
   // ============================================
-  const themeBtn = document.getElementById('themeBtn');
+  const themeToggle = document.getElementById('themeToggle');
   
   // بارگذاری تم ذخیره شده
-  const currentTheme = localStorage.getItem('theme') || 'light';
-  document.documentElement.setAttribute('data-theme', currentTheme);
-  updateThemeText(currentTheme);
+  const savedTheme = localStorage.getItem('theme') || 'light';
+  document.documentElement.setAttribute('data-theme', savedTheme);
+  updateThemeText(savedTheme);
 
-  themeBtn.addEventListener('click', () => {
+  themeToggle.addEventListener('click', () => {
     const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
     const newTheme = isDark ? 'light' : 'dark';
     
@@ -54,9 +57,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function updateThemeText(theme) {
     if (theme === 'dark') {
-      themeBtn.textContent = "حالت روز ☀️";
+      themeToggle.textContent = "حالت روز ☀️";
     } else {
-      themeBtn.textContent = "حالت شب 🌙";
+      themeToggle.textContent = "حالت شب 🌙";
     }
   }
 
