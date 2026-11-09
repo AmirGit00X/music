@@ -1,5 +1,5 @@
 /* ============================================
-   متغیرهای رنگ (حالت روز - تم آبی رسمی و دانشگاهی)
+   متغیرهای رنگ (حالت روز)
    ============================================ */
 :root {
   --bg: #f8fafc;            
@@ -11,17 +11,13 @@
   --border: #e2e8f0;
   --card-bg: #ffffff;
   --shadow: rgba(0,0,0,0.05);
-  
   --hero-bg: linear-gradient(135deg, #2563eb 0%, #1e3a8a 100%);
   --hero-text: #ffffff;
-  
   --cta-bg: #f1f5f9;        
   --cta-text: #1e293b;
 }
 
-/* ============================================
-   حالت شب (تاریک)
-   ============================================ */
+/* حالت شب */
 [data-theme="dark"] {
   --bg: #0f172a;
   --text: #f8fafc;
@@ -32,17 +28,13 @@
   --border: #334155;
   --card-bg: #1e293b;
   --shadow: rgba(0,0,0,0.4);
-  
   --hero-bg: linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%);
   --hero-text: #ffffff;
-  
   --cta-bg: #1e293b;
   --cta-text: #f8fafc;
 }
 
-/* ============================================
-   ریست و پایه
-   ============================================ */
+/* پایه */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 body {
@@ -70,39 +62,52 @@ header {
   display: flex; align-items: center; justify-content: space-between;
 }
 .header-right { display: flex; align-items: center; gap: 1rem; }
-
 .logo { display: flex; align-items: center; gap: 0.6rem; font-weight: 700; font-size: 1.1rem; color: var(--accent); }
 .logo img { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; }
 .logo-text { display: flex; flex-direction: column; line-height: 1.3; }
 .logo-text small { font-size: 0.7rem; font-weight: 400; color: var(--text); opacity: 0.7; }
 
 /* ============================================
-   منوی ناوبری
+   نوار منو اصلی (دسکتاپ)
    ============================================ */
 nav { display: flex; align-items: center; gap: 0.5rem; }
-.nav-item { position: relative; }
 
 .nav-link {
   display: flex; align-items: center; gap: 0.3rem;
   padding: 0.5rem 0.8rem; border-radius: 8px; font-size: 0.95rem;
   cursor: pointer; transition: background 0.2s, color 0.2s;
   border: none; background: transparent; color: var(--text); font-family: inherit;
+  text-decoration: none;
 }
 .nav-link:hover { background: var(--accent); color: #fff; }
-.nav-link .arrow { font-size: 0.7rem; transition: transform 0.2s; }
-.nav-item.open .nav-link .arrow { transform: rotate(180deg); }
 
-.dropdown {
-  position: absolute; top: 100%; right: 0; min-width: 200px;
+/* ============================================
+   منوی کشویی (Dropdown) - طراحی جدید
+   ============================================ */
+.dropdown-container { position: relative; }
+
+.dropdown-btn .arrow { font-size: 0.7rem; transition: transform 0.3s ease; }
+.dropdown-container.active .dropdown-btn .arrow { transform: rotate(180deg); }
+.dropdown-container.active .dropdown-btn { background: var(--accent); color: #fff; }
+
+.dropdown-menu {
+  position: absolute; top: 100%; right: 0; min-width: 220px;
   background: var(--card-bg); border: 1px solid var(--border); border-radius: 10px;
-  box-shadow: 0 8px 24px var(--shadow); padding: 0.5rem; margin-top: 0.5rem;
-  opacity: 0; visibility: hidden; transform: translateY(-8px);
+  box-shadow: 0 10px 30px var(--shadow); padding: 0.5rem; margin-top: 0.5rem;
+  opacity: 0; visibility: hidden; transform: translateY(-10px);
   transition: all 0.2s ease; z-index: 100;
+  display: flex; flex-direction: column;
 }
-.nav-item.open .dropdown { opacity: 1; visibility: visible; transform: translateY(0); }
-.dropdown a { display: block; padding: 0.6rem 0.8rem; border-radius: 8px; font-size: 0.9rem; transition: background 0.2s; white-space: nowrap; }
-.dropdown a:hover { background: var(--accent); color: #fff; }
+.dropdown-container.active .dropdown-menu { 
+  opacity: 1; visibility: visible; transform: translateY(0); 
+}
+.dropdown-menu a { 
+  display: block; padding: 0.6rem 1rem; border-radius: 6px; 
+  font-size: 0.9rem; color: var(--text); transition: background 0.2s; 
+}
+.dropdown-menu a:hover { background: var(--hero-bg); color: var(--accent); }
 
+/* دکمه تم */
 .theme-toggle {
   display: flex; align-items: center; justify-content: center;
   width: 40px; height: 40px; border-radius: 8px; cursor: pointer;
@@ -111,59 +116,71 @@ nav { display: flex; align-items: center; gap: 0.5rem; }
 }
 .theme-toggle:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
 
-/* ============================================
-   منوی موبایل
-   ============================================ */
-.menu-toggle { display: none; background: none; border: none; font-size: 1.6rem; cursor: pointer; color: var(--text); padding: 0.2rem; }
-.menu-overlay { display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.5); z-index: 1001; opacity: 0; transition: opacity 0.3s; }
+/* دکمه منوی موبایل و لایه تاریک */
+.menu-toggle { display: none; background: none; border: none; font-size: 1.6rem; cursor: pointer; color: var(--accent); padding: 0.2rem; }
+.menu-overlay { 
+  display: none; position: fixed; inset: 0; 
+  background: rgba(0,0,0,0.5); z-index: 999; opacity: 0; transition: opacity 0.3s; 
+}
 .menu-overlay.active { display: block; opacity: 1; }
 
+/* ============================================
+   منوی موبایل (پنل کشویی از راست)
+   ============================================ */
 @media (max-width: 768px) {
-  .menu-toggle { display: block; color: var(--accent); }
+  .menu-toggle { display: block; }
   
   nav {
-    position: fixed; top: 0; right: -280px; width: 280px; height: 100vh;
+    position: fixed; top: 0; right: -100%; width: 280px; height: 100vh;
     flex-direction: column; align-items: stretch; background: var(--card-bg);
     border-left: 1px solid var(--border); padding: 5rem 1.5rem 2rem;
-    box-shadow: -4px 0 24px var(--shadow); transition: right 0.3s ease;
-    z-index: 1002; overflow-y: auto;
+    box-shadow: -5px 0 25px rgba(0,0,0,0.1); transition: right 0.3s ease;
+    z-index: 1000; overflow-y: auto; gap: 0;
   }
   nav.open { right: 0; }
-  .nav-item { width: 100%; }
-  .nav-link { width: 100%; justify-content: space-between; font-size: 1.05rem; padding: 0.8rem 0.5rem; border-bottom: 1px solid var(--border); border-radius: 0; }
+  
+  .nav-link { 
+    width: 100%; justify-content: space-between; font-size: 1.05rem; 
+    padding: 1rem 0.5rem; border-bottom: 1px solid var(--border); 
+    border-radius: 0;
+  }
   .nav-link:hover { background: transparent; color: var(--accent); }
   
-  .dropdown { 
-    position: static; opacity: 1; visibility: visible; transform: none; 
-    box-shadow: none; border: none; margin-top: 0; padding-right: 1rem; 
-    display: none; background: transparent; 
-  }
-  .nav-item.open .dropdown { display: block; }
-  .dropdown a { border-bottom: none; padding: 0.6rem 0.5rem; color: var(--text-muted); }
+  /* تنظیمات منوی کشویی در موبایل */
+  .dropdown-container { width: 100%; }
+  .dropdown-container.active .dropdown-btn { background: transparent; color: var(--accent); }
   
-  .theme-btn-wrapper { margin-top: auto; padding-top: 2rem; display: flex; justify-content: flex-start; }
+  .dropdown-menu {
+    position: static; opacity: 1; visibility: visible; transform: none;
+    box-shadow: none; border: none; padding: 0 1rem; 
+    max-height: 0; overflow: hidden; transition: max-height 0.3s ease;
+    display: block;
+  }
+  /* وقتی در موبایل منو باز می‌شود، ارتفاع آن زیاد می‌شود */
+  .dropdown-container.active .dropdown-menu { 
+    max-height: 300px; 
+    padding: 0.5rem 1rem 1rem 1rem;
+  }
+  .dropdown-menu a { border-bottom: none; padding: 0.5rem; color: var(--text-muted); }
+
+  .theme-wrapper { margin-top: auto; padding-top: 2rem; width: 100%; display: flex; }
+  .theme-toggle { width: 100%; border-radius: 8px; padding: 0.8rem; }
 }
 
 /* ============================================
-   بخش قهرمان (Hero) 
+   بقیه استایل‌های صفحه (بدون تغییر)
    ============================================ */
 .hero {
-  position: relative; 
-  min-height: 400px; 
+  position: relative; min-height: 400px;
   display: flex; align-items: center; justify-content: center; text-align: center;
-  background: var(--hero-bg);
-  color: var(--hero-text);
-  transition: background 0.3s;
-  padding: 3rem 0;
+  background: var(--hero-bg); color: var(--hero-text);
+  transition: background 0.3s; padding: 3rem 0;
 }
 .hero-content { position: relative; z-index: 2; max-width: 800px; padding: 2rem 1.5rem; }
 .hero h1 { font-size: 2.5rem; font-weight: 800; margin-bottom: 1rem; line-height: 1.4; }
 .hero p { font-size: 1.2rem; opacity: 0.9; margin-bottom: 2rem; }
 .hero-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
 
-/* ============================================
-   دکمه‌ها
-   ============================================ */
 .btn { display: inline-block; padding: 0.7rem 1.6rem; border-radius: 10px; font-size: 0.95rem; font-weight: 600; font-family: inherit; cursor: pointer; transition: all 0.2s; border: 2px solid transparent; }
 .btn-primary { background: var(--accent); color: #fff; }
 .btn-primary:hover { background: var(--accent-light); transform: translateY(-2px); }
@@ -172,16 +189,13 @@ nav { display: flex; align-items: center; gap: 0.5rem; }
 .hero .btn-outline { color: #fff; border-color: #fff; }
 .hero .btn-outline:hover { background: #fff; color: var(--accent); }
 
-/* ============================================
-   بقیه بخش‌ها
-   ============================================ */
 .about-brief { padding: 4rem 0; text-align: center; }
 .about-brief h2 { font-size: 1.8rem; color: var(--accent); margin-bottom: 1rem; }
 .about-brief p { max-width: 700px; margin: 0 auto 1.5rem; color: var(--text-muted); font-size: 1.05rem; }
 .about-brief .btn-outline { color: var(--accent); border-color: var(--accent); }
 .about-brief .btn-outline:hover { background: var(--accent); color: #fff; }
 
-.news-preview { padding: 4rem 0; background: var(--header-bg); transition: background 0.3s; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.news-preview { padding: 4rem 0; background: var(--header-bg); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
 .news-preview h2 { font-size: 1.8rem; color: var(--accent); text-align: center; margin-bottom: 2rem; }
 .news-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
 .news-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; transition: transform 0.2s, box-shadow 0.2s; }
@@ -192,19 +206,15 @@ nav { display: flex; align-items: center; gap: 0.5rem; }
 .read-more { color: var(--accent); font-weight: 600; font-size: 0.9rem; }
 .read-more:hover { color: var(--accent-light); }
 
-.cta {
-  padding: 4rem 0; text-align: center;
-  background: var(--cta-bg);
-  color: var(--cta-text); transition: background 0.3s, color 0.3s;
-}
+.cta { padding: 4rem 0; text-align: center; background: var(--cta-bg); color: var(--cta-text); }
 .cta h2 { font-size: 2rem; margin-bottom: 1rem; color: var(--accent); }
 .cta p { font-size: 1.1rem; margin-bottom: 1.5rem; opacity: 0.8; }
 .cta .btn-primary { background: var(--accent); color: #fff; }
 
-footer { border-top: 1px solid var(--border); background: var(--header-bg); transition: background 0.3s; }
+footer { border-top: 1px solid var(--border); background: var(--header-bg); }
 .footer-container { max-width: 1200px; margin: 0 auto; padding: 3rem 1.5rem 1.5rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; }
 .footer-col h4 { color: var(--accent); margin-bottom: 0.8rem; font-size: 1rem; }
-.footer-col a, .footer-col p { display: block; color: var(--text-muted); font-size: 0.9rem; margin-bottom: 0.4rem; transition: color 0.2s; }
+.footer-col a, .footer-col p { display: block; color: var(--text-muted); font-size: 0.9rem; margin-bottom: 0.4rem; }
 .footer-col a:hover { color: var(--accent); }
 .footer-bottom { text-align: center; padding: 1rem; border-top: 1px solid var(--border); font-size: 0.85rem; color: var(--text-muted); }
 
