@@ -1,9 +1,9 @@
 /* ============================================
-   ۱. حالت شب/روز (با بررسی خودکار سیستم)
+   ۱. حالت شب/روز
    ============================================ */
 const themeToggle = document.getElementById('themeToggle');
-const themeIcon = document.getElementById('themeIcon');
-const themeLabel = document.getElementById('themeLabel');
+const iconMoon = document.getElementById('iconMoon');
+const iconSun = document.getElementById('iconSun');
 
 // بررسی تنظیمات ذخیره‌شده یا سیستم‌عامل
 const savedTheme = localStorage.getItem('theme');
@@ -12,25 +12,24 @@ const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 // تابع اعمال تم
 function applyTheme(theme) {
   document.documentElement.setAttribute('data-theme', theme);
-  localStorage.setItem('theme', theme);
   
   if (theme === 'dark') {
-    themeIcon.textContent = '☀️';
-    themeLabel.textContent = 'حالت روز';
+    iconMoon.style.display = 'none';
+    iconSun.style.display = 'block'; // در حالت شب، آیکون خورشید (برای رفتن به روز) نشان داده می‌شود
   } else {
-    themeIcon.textContent = '🌙';
-    themeLabel.textContent = 'حالت شب';
+    iconMoon.style.display = 'block'; // در حالت روز، آیکون ماه نشان داده می‌شود
+    iconSun.style.display = 'none';
   }
 }
 
 // مقداردهی اولیه
 if (savedTheme) {
-  applyTheme(savedTheme); // اگر کاربر قبلاً انتخاب کرده، همان را اعمال کن
+  applyTheme(savedTheme); 
 } else {
-  applyTheme(systemDark ? 'dark' : 'light'); // در غیر این صورت، تنظیمات سیستم را اعمال کن
+  applyTheme(systemDark ? 'dark' : 'light'); // اگر کاربر قبلاً چیزی انتخاب نکرده، از سیستم تبعیت کن
 }
 
-// شنیدن تغییرات سیستم‌عامل (اگر کاربر تنظیمات دستی نداشته باشد)
+// گوش دادن به تغییرات سیستم‌عامل (اگر کاربر دستی تنظیمات را عوض نکرده باشد)
 window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
   if (!localStorage.getItem('theme')) {
     applyTheme(e.matches ? 'dark' : 'light');
@@ -40,7 +39,9 @@ window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e =
 // کلیک روی دکمه تم
 themeToggle.addEventListener('click', () => {
   const current = document.documentElement.getAttribute('data-theme');
-  applyTheme(current === 'dark' ? 'light' : 'dark');
+  const next = current === 'dark' ? 'light' : 'dark';
+  applyTheme(next);
+  localStorage.setItem('theme', next); // ذخیره انتخاب کاربر
 });
 
 
@@ -65,17 +66,16 @@ document.addEventListener('click', (e) => {
 
 
 /* ============================================
-   ۳. منوی موبایل (پنل کشویی از راست)
+   ۳. منوی موبایل
    ============================================ */
 const menuToggle = document.getElementById('menuToggle');
 const mainNav = document.getElementById('mainNav');
 const menuOverlay = document.getElementById('menuOverlay');
 
-// باز و بسته کردن منو
 function toggleMenu() {
   mainNav.classList.toggle('open');
   menuOverlay.classList.toggle('active');
 }
 
 menuToggle.addEventListener('click', toggleMenu);
-menuOverlay.addEventListener('click', toggleMenu); // بستن با کلیک روی لایه تاریک
+menuOverlay.addEventListener('click', toggleMenu); 
