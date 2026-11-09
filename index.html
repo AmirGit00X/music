@@ -103,7 +103,7 @@
       background: var(--accent); color: #fff;
     }
 
-    /* منوی کشویی (Dropdown) - منطق سکان آکادمی */
+    /* منوی کشویی (Dropdown) */
     .submenu {
       position: absolute; top: 100%; right: 0;
       min-width: 200px; background: var(--card-bg);
@@ -132,7 +132,7 @@
     .main-nav > ul > li:hover .arrow { transform: rotate(180deg); }
 
     /* ============================================
-       دکمه تم (آیکون)
+       دکمه تم (آیکون - مخفی در هدر دسکتاپ)
        ============================================ */
     .theme-toggle {
       display: flex; align-items: center; justify-content: center;
@@ -141,6 +141,10 @@
       transition: all 0.2s; padding: 0;
     }
     .theme-toggle:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+    .theme-btn-wrapper {
+      display: none; /* در دسکتاپ مخفی است، فقط در منوی موبایل نمایش داده می‌شود */
+    }
 
     /* ============================================
        منوی موبایل
@@ -190,12 +194,12 @@
       
       .main-nav > ul > li.active > a .arrow { transform: rotate(180deg); }
       
-      /* دکمه تم در پایین منو، سمت چپ */
+      /* نمایش دکمه تم فقط در موبایل، پایین منو و سمت چپ */
       .theme-btn-wrapper {
+        display: flex;
         margin-top: auto;
         padding-top: 1.5rem;
-        display: flex;
-        justify-content: flex-start; /* در RTL چپ می‌شود */
+        justify-content: flex-start; /* در RTL به معنای سمت چپ است */
       }
     }
 
@@ -299,8 +303,8 @@
           <li><a href="index.html">عضویت</a></li>
         </ul>
 
-        <!-- دکمه تم (در موبایل می‌رود پایین منو، در دسکتاپ در هدر می‌ماند) -->
-        <div class="theme-btn-wrapper" style="margin-right: 1rem;">
+        <!-- دکمه تم (فقط در منوی موبایل، پایین و سمت چپ) -->
+        <div class="theme-btn-wrapper">
           <button type="button" class="theme-toggle" id="themeToggle" title="تغییر حالت شب/روز">
             <svg id="iconMoon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
             <svg id="iconSun" style="display: none;" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
@@ -451,14 +455,14 @@
       menuOverlay.addEventListener('click', toggleMenu);
 
       // ============================================
-      // ۳. باز کردن زیرمنو در موبایل با کلیک (چون هاور در موبایل کار نمی‌کند)
+      // ۳. باز کردن زیرمنو در موبایل با کلیک
       // ============================================
       const submenuLinks = document.querySelectorAll('.has-submenu > a');
       
       submenuLinks.forEach(link => {
         link.addEventListener('click', (e) => {
           if (window.innerWidth <= 768) {
-            e.preventDefault(); // جلوگیری از رفتن به لینک
+            e.preventDefault();
             const parentLi = link.parentElement;
             parentLi.classList.toggle('active');
             
