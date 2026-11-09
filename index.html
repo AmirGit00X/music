@@ -10,141 +10,101 @@
 </head>
 <body>
 
-  <!-- لایه تاریک پشت منو (فقط در موبایل) -->
-  <div class="menu-overlay" id="menuOverlay"></div>
+  <!-- دکمه باز کردن منو در موبایل -->
+  <div class="mobile-header">
+    <button class="menu-btn" id="mobileMenuBtn">☰</button>
+    <span class="mobile-title">کانون موسیقی</span>
+  </div>
 
-  <header>
-    <div class="header-container">
-      <div class="header-right">
-        <!-- دکمه منوی موبایل -->
-        <button class="menu-toggle" id="mobileMenuBtn" aria-label="باز کردن منو">☰</button>
-        
-        <a href="index.html" class="logo">
-          <img src="logo.png" alt="لوگو" onerror="this.style.display='none'">
-          <div class="logo-text">
-            کانون موسیقی
-            <small>دانشگاه علوم پزشکی اراک</small>
-          </div>
-        </a>
-      </div>
+  <!-- لایه تاریک پشت منو (فقط روی محتوای صفحه می‌افتد) -->
+  <div class="overlay" id="overlay"></div>
 
-      <!-- منوی اصلی (در موبایل از راست باز می‌شود) -->
-      <nav id="navMenu">
-        <a href="index.html" class="nav-link">خانه</a>
-        <a href="about.html" class="nav-link">درباره ما</a>
+  <!-- منوی اصلی (در دسکتاپ بالا، در موبایل از راست باز می‌شود) -->
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <span class="logo-title">کانون موسیقی</span>
+      <button class="close-btn" id="closeMenuBtn">×</button>
+    </div>
 
-        <!-- ساختار جدید منوی کشویی -->
-        <div class="dropdown-container">
-          <button class="nav-link dropdown-btn" id="dropBtn">
-            بخش‌ها
-            <span class="arrow">▼</span>
-          </button>
-          <div class="dropdown-menu" id="dropMenu">
-            <a href="members.html">اعضا</a>
-            <a href="gallery.html">آثار و اجراها</a>
-            <a href="news.html">اخبار و رویدادها</a>
-            <a href="learning.html">آموزش</a>
-            <a href="contact.html">تماس و عضویت</a>
-          </div>
+    <div class="menu-links">
+      <a href="index.html" class="menu-item">خانه</a>
+      <a href="about.html" class="menu-item">درباره ما</a>
+
+      <!-- منوی کشویی (Accordion) -->
+      <div class="accordion">
+        <button class="menu-item accordion-btn" id="accordionBtn">
+          بخش‌ها
+          <span class="arrow">▼</span>
+        </button>
+        <div class="submenu" id="submenu">
+          <a href="members.html">اعضا</a>
+          <a href="gallery.html">آثار و اجراها</a>
+          <a href="news.html">اخبار و رویدادها</a>
+          <a href="learning.html">آموزش</a>
+          <a href="contact.html">تماس و عضویت</a>
         </div>
+      </div>
 
-        <a href="contact.html" class="nav-link">عضویت</a>
+      <a href="contact.html" class="menu-item">عضویت</a>
+    </div>
 
-        <!-- دکمه تغییر تم -->
-        <div class="theme-wrapper">
-          <button type="button" class="theme-toggle" id="themeBtn" title="تغییر حالت شب/روز">
-            <svg id="iconMoon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-            <svg id="iconSun" style="display: none;" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
-          </button>
+    <!-- دکمه تم -->
+    <div class="sidebar-footer">
+      <button type="button" class="theme-btn" id="themeBtn">
+        حالت شب / روز
+      </button>
+    </div>
+  </nav>
+
+  <!-- محتوای اصلی صفحه -->
+  <main class="main-content">
+    <section class="hero">
+      <div class="hero-content">
+        <h1>جایی برای نفس کشیدن بین درس و موسیقی</h1>
+        <p>کانون موسیقی دانشگاه علوم پزشکی اراک</p>
+        <div class="hero-buttons">
+          <a href="contact.html" class="btn btn-primary">عضو شوید</a>
+          <a href="gallery.html" class="btn btn-outline">آثار ما را بشنوید</a>
         </div>
-      </nav>
-    </div>
-  </header>
-
-  <!-- محتوای صفحه -->
-  <section class="hero">
-    <div class="hero-content">
-      <h1>جایی برای نفس کشیدن بین درس و موسیقی</h1>
-      <p>کانون موسیقی دانشگاه علوم پزشکی اراک</p>
-      <div class="hero-buttons">
-        <a href="contact.html" class="btn btn-primary">عضو شوید</a>
-        <a href="gallery.html" class="btn btn-outline">آثار ما را بشنوید</a>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section class="about-brief">
-    <div class="container">
-      <h2>ما کی هستیم؟</h2>
-      <p>
-        کانون موسیقی دانشگاه علوم پزشکی اراک فضایی است برای دانشجویانی که می‌خواهند
-        در کنار تحصیل، به موسیقی بپردازند. ما کارگاه‌های آموزشی، اجراهای زنده و
-        برنامه‌های گروهی برگزار می‌کنیم.
-      </p>
-      <a href="about.html" class="btn btn-outline">بیشتر بدانید</a>
-    </div>
-  </section>
+    <section class="about-brief">
+      <div class="container">
+        <h2>ما کی هستیم؟</h2>
+        <p>کانون موسیقی دانشگاه علوم پزشکی اراک فضایی است برای دانشجویانی که می‌خواهند در کنار تحصیل، به موسیقی بپردازند. ما کارگاه‌های آموزشی، اجراهای زنده و برنامه‌های گروهی برگزار می‌کنیم.</p>
+        <a href="about.html" class="btn btn-outline">بیشتر بدانید</a>
+      </div>
+    </section>
 
-  <section class="news-preview">
-    <div class="container">
-      <h2>آخرین اخبار و رویدادها</h2>
-      <div class="news-grid">
-        <article class="news-card">
-          <div class="news-card-body">
-            <h3>کارگاه گیتار آغاز شد</h3>
-            <p>ثبت‌نام کارگاه مقدماتی گیتار برای دانشجویان علاقه‌مند آغاز شد.</p>
-            <a href="news.html" class="read-more">ادامه مطلب ←</a>
-          </div>
-        </article>
-        <article class="news-card">
-          <div class="news-card-body">
-            <h3>اجرای زنده در هفته دانشجو</h3>
-            <p>گروه موسیقی کانون در مراسم هفته دانشجو به اجرای زنده می‌پردازد.</p>
-            <a href="news.html" class="read-more">ادامه مطلب ←</a>
-          </div>
-        </article>
-        <article class="news-card">
-          <div class="news-card-body">
-            <h3>فراخوان عضویت</h3>
-            <p>از تمامی دانشجویان علاقه‌مند به موسیقی برای عضویت در کانون دعوت می‌شود.</p>
-            <a href="contact.html" class="read-more">ادامه مطلب ←</a>
-          </div>
-        </article>
+    <section class="news-preview">
+      <div class="container">
+        <h2>آخرین اخبار و رویدادها</h2>
+        <div class="news-grid">
+          <article class="news-card">
+            <div class="news-card-body">
+              <h3>کارگاه گیتار آغاز شد</h3>
+              <p>ثبت‌نام کارگاه مقدماتی گیتار برای دانشجویان علاقه‌مند آغاز شد.</p>
+              <a href="news.html" class="read-more">ادامه مطلب ←</a>
+            </div>
+          </article>
+          <article class="news-card">
+            <div class="news-card-body">
+              <h3>اجرای زنده در هفته دانشجو</h3>
+              <p>گروه موسیقی کانون در مراسم هفته دانشجو به اجرای زنده می‌پردازد.</p>
+              <a href="news.html" class="read-more">ادامه مطلب ←</a>
+            </div>
+          </article>
+        </div>
       </div>
-    </div>
-  </section>
-
-  <section class="cta">
-    <div class="container">
-      <h2>به ما بپیوندید</h2>
-      <p>اگر به موسیقی علاقه دارید، جای شما اینجاست.</p>
-      <a href="contact.html" class="btn btn-primary">فرم عضویت</a>
-    </div>
-  </section>
-
-  <footer>
-    <div class="footer-container">
-      <div class="footer-col">
-        <h4>کانون موسیقی</h4>
-        <p>دانشگاه علوم پزشکی اراک</p>
+    </section>
+    
+    <footer>
+      <div class="container">
+        <p>© ۱۴۰۴ کانون موسیقی دانشگاه علوم پزشکی اراک</p>
       </div>
-      <div class="footer-col">
-        <h4>لینک‌های سریع</h4>
-        <a href="about.html">درباره ما</a>
-        <a href="news.html">اخبار</a>
-        <a href="contact.html">تماس</a>
-      </div>
-      <div class="footer-col">
-        <h4>شبکه‌های اجتماعی</h4>
-        <a href="#">اینستاگرام</a>
-        <a href="#">تلگرام</a>
-        <a href="#">آپارات</a>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      © ۱۴۰۴ کانون موسیقی دانشگاه علوم پزشکی اراک
-    </div>
-  </footer>
+    </footer>
+  </main>
 
   <script src="main.js"></script>
 </body>
