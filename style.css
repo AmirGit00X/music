@@ -47,7 +47,7 @@ ul { list-style: none; }
 .container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
 
 /* ============================================
-   هدر
+   هدر (استانداردسازی شده)
    ============================================ */
 header {
   position: sticky; top: 0; z-index: 1000;
@@ -58,15 +58,19 @@ header {
 .header-container {
   max-width: 1200px; margin: 0 auto; padding: 0.8rem 1.5rem;
   display: flex; align-items: center; justify-content: space-between;
+  height: 75px; /* ارتفاع ثابت و استاندارد برای هدر */
 }
 .header-right { display: flex; align-items: center; gap: 1rem; }
-.logo { display: flex; align-items: center; gap: 0.6rem; font-weight: 700; font-size: 1.1rem; color: var(--accent); }
-.logo img { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; }
-.logo-text { display: flex; flex-direction: column; line-height: 1.3; }
-.logo-text small { font-size: 0.7rem; font-weight: 400; color: var(--text); opacity: 0.7; }
+
+/* لوگو و متن‌های آن */
+.logo { display: flex; align-items: center; gap: 0.75rem; }
+.logo img { width: 45px; height: 45px; border-radius: 50%; object-fit: cover; }
+.logo-text { display: flex; flex-direction: column; line-height: 1.4; }
+.logo-text strong { font-size: 1.15rem; font-weight: 800; color: var(--text); }
+.logo-text small { font-size: 0.75rem; font-weight: 500; color: var(--text-muted); }
 
 /* ============================================
-   منوی ناوبری اصلی (دسکتاپ) - آبشاری با CSS
+   منوی ناوبری اصلی (دسکتاپ)
    ============================================ */
 .main-nav > ul {
   display: flex;
@@ -77,16 +81,16 @@ header {
   position: relative;
 }
 .main-nav > ul > li > a {
-  display: flex; align-items: center; gap: 0.3rem;
+  display: flex; align-items: center; gap: 0.4rem;
   padding: 0.5rem 1rem; border-radius: 8px;
-  font-size: 0.95rem; font-weight: 500;
+  font-size: 0.95rem; font-weight: 600;
   color: var(--text); transition: background 0.2s, color 0.2s;
 }
 .main-nav > ul > li > a:hover {
   background: var(--accent); color: #fff;
 }
 
-/* منوی کشویی (زیرمنو) */
+/* منوی آبشاری (Dropdown) */
 .submenu {
   position: absolute; top: 100%; right: 0;
   min-width: 220px; background: var(--card-bg);
@@ -94,42 +98,41 @@ header {
   box-shadow: 0 8px 24px var(--shadow);
   padding: 0.5rem; margin-top: 0.5rem;
   
-  /* منطق اصلی منوی آبشاری: مخفی کردن */
   opacity: 0; visibility: hidden; transform: translateY(-10px);
   transition: all 0.2s ease; z-index: 100;
 }
 .submenu li a {
   display: block; padding: 0.6rem 1rem;
-  border-radius: 6px; font-size: 0.9rem;
-  color: var(--text); transition: background 0.2s;
+  border-radius: 6px; font-size: 0.9rem; font-weight: 500;
+  color: var(--text-muted); transition: background 0.2s, color 0.2s;
 }
 .submenu li a:hover {
   background: var(--bg); color: var(--accent);
 }
 
-/* نمایش زیرمنو با هاور کردن روی والد (طبق مقاله) */
+/* نمایش زیرمنو با هاور کردن روی والد */
 .has-submenu:hover .submenu {
   opacity: 1; visibility: visible; transform: translateY(0);
 }
-.has-submenu:hover > a .arrow {
-  transform: rotate(180deg);
-}
+.has-submenu:hover > a .arrow { transform: rotate(180deg); }
 .arrow { font-size: 0.7rem; transition: transform 0.2s; }
 
 /* دکمه تم */
+.header-left { display: flex; align-items: center; }
 .theme-btn {
   padding: 0.5rem 1rem; border-radius: 8px;
   border: 1px solid var(--border); background: var(--card-bg);
-  color: var(--text); cursor: pointer; font-family: inherit; font-size: 0.9rem;
+  color: var(--text); cursor: pointer; font-family: inherit; font-size: 0.9rem; font-weight: 600;
+  transition: all 0.2s;
 }
 .theme-btn:hover { border-color: var(--accent); color: var(--accent); }
 
 /* ============================================
-   استایل‌های موبایل (منوی کشویی از راست)
+   استایل‌های موبایل
    ============================================ */
 .menu-toggle {
   display: none; background: none; border: none;
-  font-size: 1.6rem; cursor: pointer; color: var(--accent);
+  font-size: 1.6rem; cursor: pointer; color: var(--accent); padding: 0;
 }
 .overlay {
   display: none; position: fixed; inset: 0;
@@ -159,17 +162,16 @@ header {
   }
   .main-nav > ul > li > a:hover { background: transparent; color: var(--accent); }
 
-  /* زیرمنوها در موبایل (باز شدن با کلیک) */
+  /* زیرمنوها در موبایل */
   .submenu {
     position: static; opacity: 1; visibility: visible; transform: none;
     box-shadow: none; border: none; padding: 0 1rem;
     max-height: 0; overflow: hidden; transition: max-height 0.3s ease;
     display: block; background: transparent;
   }
-  .submenu.active {
-    max-height: 300px;
-  }
-  .submenu li a { padding: 0.6rem 0.5rem; color: var(--text-muted); }
+  .submenu.active { max-height: 300px; }
+  
+  .submenu li a { padding: 0.6rem 0.5rem; color: var(--text-muted); font-weight: 500; }
   .submenu li a:hover { background: transparent; color: var(--accent); }
   
   .has-submenu.active > a .arrow { transform: rotate(180deg); }
@@ -204,6 +206,11 @@ header {
 .about-brief .btn-outline:hover { background: var(--accent); color: #fff; }
 
 @media (max-width: 768px) {
+  .header-container { height: 65px; padding: 0.5rem 1rem; }
+  .logo img { width: 35px; height: 35px; }
+  .logo-text strong { font-size: 1rem; }
+  .logo-text small { font-size: 0.65rem; }
+  
   .hero { min-height: 320px; padding: 2rem 0; } 
   .hero h1 { font-size: 1.8rem; }
   .hero p { font-size: 1rem; }
