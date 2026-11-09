@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>کانون موسیقی دانشگاه علوم پزشکی اراک</title>
   <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet">
+  
+  <!-- فایل استایل -->
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -19,7 +21,7 @@
       <div class="header-right">
         <button class="menu-toggle" id="menuToggle" aria-label="منو">☰</button>
         <a href="index.html" class="logo">
-          <img src="logo.png" alt="لوگو کانون موسیقی" onerror="this.style.display='none'">
+          <img src="logo.png" alt="لوگو" onerror="this.style.display='none'">
           <div class="logo-text">
             کانون موسیقی
             <small>دانشگاه علوم پزشکی اراک</small>
@@ -33,17 +35,16 @@
           <a href="index.html" class="nav-link">خانه</a>
         </div>
         <div class="nav-item">
-          <!-- موقتا به صفحه اصلی وصل شد تا ارور 404 نده -->
           <a href="index.html" class="nav-link">درباره ما</a>
         </div>
 
         <!-- منوی کشویی بخش‌ها -->
         <div class="nav-item" id="dropdownItem">
-          <button type="button" class="nav-link" id="dropdownBtn" aria-expanded="false">
+          <button type="button" class="nav-link" id="dropdownBtn">
             بخش‌ها
             <span class="arrow">▼</span>
           </button>
-          <div class="dropdown">
+          <div class="dropdown" id="dropdownMenu">
             <a href="index.html">اعضا</a>
             <a href="index.html">آثار و اجراها</a>
             <a href="index.html">اخبار و رویدادها</a>
@@ -56,7 +57,7 @@
           <a href="index.html" class="nav-link">عضویت</a>
         </div>
 
-        <!-- دکمه کوچک مربعی حالت شب/روز -->
+        <!-- دکمه حالت شب/روز -->
         <div class="nav-item theme-btn-wrapper">
           <button type="button" class="theme-toggle" id="themeToggle" title="تغییر حالت شب/روز">
             <svg id="iconMoon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
@@ -156,6 +157,7 @@
     </div>
   </footer>
 
+  <!-- فایل اسکریپت -->
   <script src="main.js"></script>
 </body>
 </html>
