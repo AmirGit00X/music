@@ -1,81 +1,80 @@
-/* ============================================
-   ۱. حالت شب/روز
-   ============================================ */
-const themeToggle = document.getElementById('themeToggle');
-const iconMoon = document.getElementById('iconMoon');
-const iconSun = document.getElementById('iconSun');
-
-// بررسی تنظیمات ذخیره‌شده یا سیستم‌عامل
-const savedTheme = localStorage.getItem('theme');
-const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-
-// تابع اعمال تم
-function applyTheme(theme) {
-  document.documentElement.setAttribute('data-theme', theme);
+document.addEventListener("DOMContentLoaded", () => {
   
-  if (theme === 'dark') {
-    iconMoon.style.display = 'none';
-    iconSun.style.display = 'block'; // در حالت شب، آیکون خورشید (برای رفتن به روز) نشان داده می‌شود
+  /* ============================================
+     ۱. حالت شب/روز
+     ============================================ */
+  const themeToggle = document.getElementById('themeToggle');
+  const iconMoon = document.getElementById('iconMoon');
+  const iconSun = document.getElementById('iconSun');
+
+  const savedTheme = localStorage.getItem('theme');
+  // بررسی اینکه آیا گوشی در حالت شب است یا نه
+  const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+  function applyTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    
+    if (theme === 'dark') {
+      iconMoon.style.display = 'none';
+      iconSun.style.display = 'block';
+    } else {
+      iconMoon.style.display = 'block';
+      iconSun.style.display = 'none';
+    }
+  }
+
+  // اگر کاربر قبلا انتخاب کرده همان را لود کن، در غیر این صورت از گوشی تبعیت کن
+  if (savedTheme) {
+    applyTheme(savedTheme);
   } else {
-    iconMoon.style.display = 'block'; // در حالت روز، آیکون ماه نشان داده می‌شود
-    iconSun.style.display = 'none';
+    applyTheme(systemDark ? 'dark' : 'light');
   }
-}
 
-// مقداردهی اولیه
-if (savedTheme) {
-  applyTheme(savedTheme); 
-} else {
-  applyTheme(systemDark ? 'dark' : 'light'); // اگر کاربر قبلاً چیزی انتخاب نکرده، از سیستم تبعیت کن
-}
+  themeToggle.addEventListener('click', () => {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'dark' ? 'light' : 'dark';
+    applyTheme(next);
+    localStorage.setItem('theme', next);
+  });
 
-// گوش دادن به تغییرات سیستم‌عامل (اگر کاربر دستی تنظیمات را عوض نکرده باشد)
-window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-  if (!localStorage.getItem('theme')) {
-    applyTheme(e.matches ? 'dark' : 'light');
+
+  /* ============================================
+     ۲. منوی کشویی (بخش‌ها)
+     ============================================ */
+  const dropdownItem = document.getElementById('dropdownItem');
+  const dropdownBtn = document.getElementById('dropdownBtn');
+
+  dropdownBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    dropdownItem.classList.toggle('open');
+  });
+
+  // بستن منو وقتی بیرون از آن کلیک می‌شود
+  document.addEventListener('click', (e) => {
+    if (dropdownItem && !dropdownItem.contains(e.target)) {
+      dropdownItem.classList.remove('open');
+    }
+  });
+
+
+  /* ============================================
+     ۳. منوی موبایل (کشویی از راست)
+     ============================================ */
+  const menuToggle = document.getElementById('menuToggle');
+  const mainNav = document.getElementById('mainNav');
+  const menuOverlay = document.getElementById('menuOverlay');
+
+  function toggleMenu() {
+    mainNav.classList.toggle('open');
+    menuOverlay.classList.toggle('active');
   }
+
+  menuToggle.addEventListener('click', (e) => {
+    e.stopPropagation();
+    toggleMenu();
+  });
+  
+  menuOverlay.addEventListener('click', toggleMenu);
+
 });
-
-// کلیک روی دکمه تم
-themeToggle.addEventListener('click', () => {
-  const current = document.documentElement.getAttribute('data-theme');
-  const next = current === 'dark' ? 'light' : 'dark';
-  applyTheme(next);
-  localStorage.setItem('theme', next); // ذخیره انتخاب کاربر
-});
-
-
-/* ============================================
-   ۲. منوی کشویی (بخش‌ها)
-   ============================================ */
-const dropdownItem = document.getElementById('dropdownItem');
-const dropdownBtn = document.getElementById('dropdownBtn');
-
-dropdownBtn.addEventListener('click', (e) => {
-  e.stopPropagation();
-  dropdownItem.classList.toggle('open');
-  dropdownBtn.setAttribute('aria-expanded', dropdownItem.classList.contains('open'));
-});
-
-document.addEventListener('click', (e) => {
-  if (!dropdownItem.contains(e.target)) {
-    dropdownItem.classList.remove('open');
-    dropdownBtn.setAttribute('aria-expanded', 'false');
-  }
-});
-
-
-/* ============================================
-   ۳. منوی موبایل
-   ============================================ */
-const menuToggle = document.getElementById('menuToggle');
-const mainNav = document.getElementById('mainNav');
-const menuOverlay = document.getElementById('menuOverlay');
-
-function toggleMenu() {
-  mainNav.classList.toggle('open');
-  menuOverlay.classList.toggle('active');
-}
-
-menuToggle.addEventListener('click', toggleMenu);
-menuOverlay.addEventListener('click', toggleMenu); 
