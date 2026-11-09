@@ -1,30 +1,19 @@
 /* ============================================
-   ۱. حالت شب/روز
+   ۱. حالت شب/روز (با بررسی خودکار سیستم)
    ============================================ */
 const themeToggle = document.getElementById('themeToggle');
 const themeIcon = document.getElementById('themeIcon');
 const themeLabel = document.getElementById('themeLabel');
 
+// بررسی تنظیمات ذخیره‌شده یا سیستم‌عامل
 const savedTheme = localStorage.getItem('theme');
 const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
-if (savedTheme === 'dark' || (!savedTheme && systemDark)) {
-  document.documentElement.setAttribute('data-theme', 'dark');
-  updateThemeUI('dark');
-} else {
-  document.documentElement.setAttribute('data-theme', 'light');
-  updateThemeUI('light');
-}
-
-themeToggle.addEventListener('click', () => {
-  const current = document.documentElement.getAttribute('data-theme');
-  const next = current === 'dark' ? 'light' : 'dark';
-  document.documentElement.setAttribute('data-theme', next);
-  localStorage.setItem('theme', next);
-  updateThemeUI(next);
-});
-
-function updateThemeUI(theme) {
+// تابع اعمال تم
+function applyTheme(theme) {
+  document.documentElement.setAttribute('data-theme', theme);
+  localStorage.setItem('theme', theme);
+  
   if (theme === 'dark') {
     themeIcon.textContent = '☀️';
     themeLabel.textContent = 'حالت روز';
@@ -34,8 +23,29 @@ function updateThemeUI(theme) {
   }
 }
 
+// مقداردهی اولیه
+if (savedTheme) {
+  applyTheme(savedTheme); // اگر کاربر قبلاً انتخاب کرده، همان را اعمال کن
+} else {
+  applyTheme(systemDark ? 'dark' : 'light'); // در غیر این صورت، تنظیمات سیستم را اعمال کن
+}
+
+// شنیدن تغییرات سیستم‌عامل (اگر کاربر تنظیمات دستی نداشته باشد)
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+  if (!localStorage.getItem('theme')) {
+    applyTheme(e.matches ? 'dark' : 'light');
+  }
+});
+
+// کلیک روی دکمه تم
+themeToggle.addEventListener('click', () => {
+  const current = document.documentElement.getAttribute('data-theme');
+  applyTheme(current === 'dark' ? 'light' : 'dark');
+});
+
+
 /* ============================================
-   ۲. منوی کشویی
+   ۲. منوی کشویی (بخش‌ها)
    ============================================ */
 const dropdownItem = document.getElementById('dropdownItem');
 const dropdownBtn = document.getElementById('dropdownBtn');
@@ -53,12 +63,19 @@ document.addEventListener('click', (e) => {
   }
 });
 
+
 /* ============================================
-   ۳. منوی موبایل
+   ۳. منوی موبایل (پنل کشویی از راست)
    ============================================ */
 const menuToggle = document.getElementById('menuToggle');
 const mainNav = document.getElementById('mainNav');
+const menuOverlay = document.getElementById('menuOverlay');
 
-menuToggle.addEventListener('click', () => {
+// باز و بسته کردن منو
+function toggleMenu() {
   mainNav.classList.toggle('open');
-});
+  menuOverlay.classList.toggle('active');
+}
+
+menuToggle.addEventListener('click', toggleMenu);
+menuOverlay.addEventListener('click', toggleMenu); // بستن با کلیک روی لایه تاریک
