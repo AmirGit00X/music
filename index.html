@@ -12,17 +12,19 @@
        متغیرهای رنگ
        ============================================ */
     :root {
-      --bg: #f8fafc;
-      --text: #1e293b;
+      --bg: #f8fafc;            
+      --text: #1e293b;          
       --text-muted: #64748b;
-      --header-bg: #ffffff;
+      --header-bg: #ffffff;     
       --accent: #2563eb;        
       --accent-light: #3b82f6;  
       --border: #e2e8f0;
       --card-bg: #ffffff;
-      --shadow: rgba(0,0,0,0.08);
+      --shadow: rgba(0,0,0,0.05);
       --hero-bg: linear-gradient(135deg, #2563eb 0%, #1e3a8a 100%);
       --hero-text: #ffffff;
+      --cta-bg: #f1f5f9;        
+      --cta-text: #1e293b;
     }
 
     [data-theme="dark"] {
@@ -37,6 +39,8 @@
       --shadow: rgba(0,0,0,0.4);
       --hero-bg: linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%);
       --hero-text: #ffffff;
+      --cta-bg: #1e293b;
+      --cta-text: #f8fafc;
     }
 
     /* ============================================
@@ -53,7 +57,6 @@
       overflow-x: hidden;
     }
     a { text-decoration: none; color: inherit; }
-    ul { list-style: none; }
     .container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
 
     /* ============================================
@@ -68,31 +71,31 @@
     .header-container {
       max-width: 1200px; margin: 0 auto; padding: 0.8rem 1.5rem;
       display: flex; align-items: center; justify-content: space-between;
-      height: 80px; /* ارتفاع استاندارد هدر */
+      height: 75px;
     }
     .header-right { display: flex; align-items: center; gap: 1rem; }
 
-    /* لوگو */
-    .logo { display: flex; align-items: center; gap: 0.75rem; }
-    .logo img { width: 45px; height: 45px; border-radius: 50%; object-fit: cover; }
+    .logo { display: flex; align-items: center; gap: 0.6rem; }
+    .logo img { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; }
     .logo-text { display: flex; flex-direction: column; line-height: 1.3; }
-    .logo-text strong { font-size: 1.15rem; font-weight: 800; color: var(--accent); }
-    .logo-text small { font-size: 0.75rem; font-weight: 500; color: var(--text-muted); }
+    .logo-text strong { font-size: 1.1rem; font-weight: 800; color: var(--accent); }
+    .logo-text small { font-size: 0.7rem; font-weight: 500; color: var(--text-muted); }
 
     /* ============================================
-       منوی ناوبری اصلی (دسکتاپ) - آبشاری
+       منوی ناوبری (آبشاری با CSS)
        ============================================ */
     .main-nav > ul {
       display: flex;
       align-items: center;
       gap: 0.5rem;
+      list-style: none;
     }
     .main-nav > ul > li {
       position: relative;
     }
     .main-nav > ul > li > a {
       display: flex; align-items: center; gap: 0.4rem;
-      padding: 0.6rem 1rem; border-radius: 8px;
+      padding: 0.5rem 1rem; border-radius: 8px;
       font-size: 0.95rem; font-weight: 600;
       color: var(--text); transition: background 0.2s, color 0.2s;
     }
@@ -100,56 +103,51 @@
       background: var(--accent); color: #fff;
     }
 
-    /* منوی کشویی (زیرمنو) */
+    /* منوی کشویی (Dropdown) - منطق سکان آکادمی */
     .submenu {
       position: absolute; top: 100%; right: 0;
-      min-width: 220px; background: var(--card-bg);
+      min-width: 200px; background: var(--card-bg);
       border: 1px solid var(--border); border-radius: 10px;
       box-shadow: 0 8px 24px var(--shadow);
       padding: 0.5rem; margin-top: 0.5rem;
       
       opacity: 0; visibility: hidden; transform: translateY(-10px);
       transition: all 0.2s ease; z-index: 100;
+      list-style: none;
     }
     .submenu li a {
-      display: block; padding: 0.6rem 1rem;
+      display: block; padding: 0.6rem 0.8rem;
       border-radius: 6px; font-size: 0.9rem; font-weight: 500;
-      color: var(--text-muted); transition: background 0.2s, color 0.2s;
+      color: var(--text); transition: background 0.2s, color 0.2s;
     }
     .submenu li a:hover {
-      background: var(--bg); color: var(--accent);
+      background: var(--accent); color: #fff;
     }
 
-    /* نمایش زیرمنو با هاور */
-    .has-submenu:hover .submenu {
+    /* نمایش زیرمنو با هاور کردن موس */
+    .main-nav > ul > li:hover .submenu {
       opacity: 1; visibility: visible; transform: translateY(0);
     }
-    .has-submenu:hover > a .arrow { transform: rotate(180deg); }
     .arrow { font-size: 0.7rem; transition: transform 0.2s; }
-
-    /* دکمه تم */
-    .header-left { display: flex; align-items: center; }
-    .theme-btn {
-      padding: 0.5rem 1rem; border-radius: 8px;
-      border: 1px solid var(--border); background: var(--card-bg);
-      color: var(--text); cursor: pointer; font-family: inherit; font-size: 0.9rem; font-weight: 600;
-      transition: all 0.2s;
-    }
-    .theme-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .main-nav > ul > li:hover .arrow { transform: rotate(180deg); }
 
     /* ============================================
-       استایل‌های موبایل
+       دکمه تم (آیکون)
        ============================================ */
-    .menu-toggle {
-      display: none; background: none; border: none;
-      font-size: 1.6rem; cursor: pointer; color: var(--accent); padding: 0;
+    .theme-toggle {
+      display: flex; align-items: center; justify-content: center;
+      width: 40px; height: 40px; border-radius: 50%; cursor: pointer;
+      border: 1px solid var(--border); background: var(--card-bg); color: var(--text);
+      transition: all 0.2s; padding: 0;
     }
-    .overlay {
-      display: none; position: fixed; inset: 0;
-      background: rgba(0,0,0,0.5); z-index: 999;
-      opacity: 0; transition: opacity 0.3s;
-    }
-    .overlay.active { display: block; opacity: 1; }
+    .theme-toggle:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+    /* ============================================
+       منوی موبایل
+       ============================================ */
+    .menu-toggle { display: none; background: none; border: none; font-size: 1.6rem; cursor: pointer; color: var(--accent); padding: 0; }
+    .menu-overlay { display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.5); z-index: 999; opacity: 0; transition: opacity 0.3s; }
+    .menu-overlay.active { display: block; opacity: 1; }
 
     @media (max-width: 768px) {
       .header-container { height: 70px; padding: 0.5rem 1rem; }
@@ -165,11 +163,12 @@
         background: var(--card-bg); border-left: 1px solid var(--border);
         padding: 5rem 1.5rem 2rem; z-index: 1000;
         transition: right 0.3s ease; overflow-y: auto;
+        display: flex; flex-direction: column;
       }
       .main-nav.active { right: 0; }
       
       .main-nav > ul {
-        flex-direction: column; align-items: stretch; gap: 0;
+        flex-direction: column; align-items: stretch; gap: 0; flex: 1;
       }
       .main-nav > ul > li > a {
         padding: 1rem 0.5rem; border-bottom: 1px solid var(--border);
@@ -189,11 +188,19 @@
       .submenu li a { padding: 0.6rem 0.5rem; color: var(--text-muted); font-weight: 500; }
       .submenu li a:hover { background: transparent; color: var(--accent); }
       
-      .has-submenu.active > a .arrow { transform: rotate(180deg); }
+      .main-nav > ul > li.active > a .arrow { transform: rotate(180deg); }
+      
+      /* دکمه تم در پایین منو، سمت چپ */
+      .theme-btn-wrapper {
+        margin-top: auto;
+        padding-top: 1.5rem;
+        display: flex;
+        justify-content: flex-start; /* در RTL چپ می‌شود */
+      }
     }
 
     /* ============================================
-       بقیه استایل‌های صفحه
+       بخش‌های صفحه
        ============================================ */
     .hero {
       position: relative; min-height: 400px;
@@ -220,22 +227,49 @@
     .about-brief .btn-outline { color: var(--accent); border-color: var(--accent); }
     .about-brief .btn-outline:hover { background: var(--accent); color: #fff; }
 
+    .news-preview { padding: 4rem 0; background: var(--header-bg); transition: background 0.3s; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .news-preview h2 { font-size: 1.8rem; color: var(--accent); text-align: center; margin-bottom: 2rem; }
+    .news-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+    .news-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; transition: transform 0.2s, box-shadow 0.2s; }
+    .news-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px var(--shadow); }
+    .news-card-body { padding: 1.5rem; }
+    .news-card h3 { font-size: 1.1rem; color: var(--accent); margin-bottom: 0.6rem; }
+    .news-card p { font-size: 0.95rem; color: var(--text-muted); margin-bottom: 1rem; }
+    .read-more { color: var(--accent); font-weight: 600; font-size: 0.9rem; }
+    .read-more:hover { color: var(--accent-light); }
+
+    .cta {
+      padding: 4rem 0; text-align: center;
+      background: var(--cta-bg);
+      color: var(--cta-text); transition: background 0.3s, color 0.3s;
+    }
+    .cta h2 { font-size: 2rem; margin-bottom: 1rem; color: var(--accent); }
+    .cta p { font-size: 1.1rem; margin-bottom: 1.5rem; opacity: 0.8; }
+    .cta .btn-primary { background: var(--accent); color: #fff; }
+
+    footer { border-top: 1px solid var(--border); background: var(--header-bg); transition: background 0.3s; }
+    .footer-container { max-width: 1200px; margin: 0 auto; padding: 3rem 1.5rem 1.5rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; }
+    .footer-col h4 { color: var(--accent); margin-bottom: 0.8rem; font-size: 1rem; }
+    .footer-col a, .footer-col p { display: block; color: var(--text-muted); font-size: 0.9rem; margin-bottom: 0.4rem; transition: color 0.2s; }
+    .footer-col a:hover { color: var(--accent); }
+    .footer-bottom { text-align: center; padding: 1rem; border-top: 1px solid var(--border); font-size: 0.85rem; color: var(--text-muted); }
+
     @media (max-width: 768px) {
       .hero { min-height: 320px; padding: 2rem 0; } 
       .hero h1 { font-size: 1.8rem; }
       .hero p { font-size: 1rem; }
+      .cta h2 { font-size: 1.5rem; }
     }
   </style>
 </head>
 <body>
 
-  <!-- هدر -->
+  <div class="menu-overlay" id="menuOverlay"></div>
+
   <header>
     <div class="header-container">
-      
-      <!-- بخش راست: لوگو و دکمه موبایل -->
       <div class="header-right">
-        <button class="menu-toggle" id="mobileMenuBtn">☰</button>
+        <button class="menu-toggle" id="menuToggle" aria-label="منو">☰</button>
         <a href="index.html" class="logo">
           <img src="logo.png" alt="لوگو" onerror="this.style.display='none'">
           <div class="logo-text">
@@ -249,42 +283,40 @@
       <nav class="main-nav" id="mainNav">
         <ul>
           <li><a href="index.html">خانه</a></li>
-          <li><a href="about.html">درباره ما</a></li>
+          <li><a href="index.html">درباره ما</a></li>
           
           <li class="has-submenu">
             <a href="#">بخش‌ها <span class="arrow">▼</span></a>
             <ul class="submenu">
-              <li><a href="members.html">اعضا</a></li>
-              <li><a href="gallery.html">آثار و اجراها</a></li>
-              <li><a href="news.html">اخبار و رویدادها</a></li>
-              <li><a href="learning.html">آموزش</a></li>
-              <li><a href="contact.html">تماس و عضویت</a></li>
+              <li><a href="index.html">اعضا</a></li>
+              <li><a href="index.html">آثار و اجراها</a></li>
+              <li><a href="index.html">اخبار و رویدادها</a></li>
+              <li><a href="index.html">آموزش</a></li>
+              <li><a href="index.html">تماس و عضویت</a></li>
             </ul>
           </li>
           
-          <li><a href="contact.html">عضویت</a></li>
+          <li><a href="index.html">عضویت</a></li>
         </ul>
+
+        <!-- دکمه تم (در موبایل می‌رود پایین منو، در دسکتاپ در هدر می‌ماند) -->
+        <div class="theme-btn-wrapper" style="margin-right: 1rem;">
+          <button type="button" class="theme-toggle" id="themeToggle" title="تغییر حالت شب/روز">
+            <svg id="iconMoon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+            <svg id="iconSun" style="display: none;" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+          </button>
+        </div>
       </nav>
-
-      <!-- دکمه تم -->
-      <div class="header-left">
-        <button class="theme-btn" id="themeToggle">تغییر تم</button>
-      </div>
-
     </div>
   </header>
 
-  <!-- لایه تاریک برای موبایل -->
-  <div class="overlay" id="overlay"></div>
-
-  <!-- محتوای صفحه -->
   <section class="hero">
     <div class="hero-content">
       <h1>جایی برای نفس کشیدن بین درس و موسیقی</h1>
       <p>کانون موسیقی دانشگاه علوم پزشکی اراک</p>
       <div class="hero-buttons">
-        <a href="contact.html" class="btn btn-primary">عضو شوید</a>
-        <a href="gallery.html" class="btn btn-outline">آثار ما را بشنوید</a>
+        <a href="index.html" class="btn btn-primary">عضو شوید</a>
+        <a href="index.html" class="btn btn-outline">آثار ما را بشنوید</a>
       </div>
     </div>
   </section>
@@ -292,35 +324,141 @@
   <section class="about-brief">
     <div class="container">
       <h2>ما کی هستیم؟</h2>
-      <p>کانون موسیقی دانشگاه علوم پزشکی اراک فضایی است برای دانشجویانی که می‌خواهند در کنار تحصیل، به موسیقی بپردازند. ما کارگاه‌های آموزشی، اجراهای زنده و برنامه‌های گروهی برگزار می‌کنیم.</p>
-      <a href="about.html" class="btn btn-outline">بیشتر بدانید</a>
+      <p>
+        کانون موسیقی دانشگاه علوم پزشکی اراک فضایی است برای دانشجویانی که می‌خواهند
+        در کنار تحصیل، به موسیقی بپردازند. ما کارگاه‌های آموزشی، اجراهای زنده و
+        برنامه‌های گروهی برگزار می‌کنیم.
+      </p>
+      <a href="index.html" class="btn btn-outline">بیشتر بدانید</a>
     </div>
   </section>
 
-  <!-- ================= اسکریپت (JavaScript) ================= -->
+  <section class="news-preview">
+    <div class="container">
+      <h2>آخرین اخبار و رویدادها</h2>
+      <div class="news-grid">
+        <article class="news-card">
+          <div class="news-card-body">
+            <h3>کارگاه گیتار آغاز شد</h3>
+            <p>ثبت‌نام کارگاه مقدماتی گیتار برای دانشجویان علاقه‌مند آغاز شد.</p>
+            <a href="index.html" class="read-more">ادامه مطلب ←</a>
+          </div>
+        </article>
+        <article class="news-card">
+          <div class="news-card-body">
+            <h3>اجرای زنده در هفته دانشجو</h3>
+            <p>گروه موسیقی کانون در مراسم هفته دانشجو به اجرای زنده می‌پردازد.</p>
+            <a href="index.html" class="read-more">ادامه مطلب ←</a>
+          </div>
+        </article>
+        <article class="news-card">
+          <div class="news-card-body">
+            <h3>فراخوان عضویت</h3>
+            <p>از تمامی دانشجویان علاقه‌مند به موسیقی برای عضویت در کانون دعوت می‌شود.</p>
+            <a href="index.html" class="read-more">ادامه مطلب ←</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="container">
+      <h2>به ما بپیوندید</h2>
+      <p>اگر به موسیقی علاقه دارید، جای شما اینجاست.</p>
+      <a href="index.html" class="btn btn-primary">فرم عضویت</a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-container">
+      <div class="footer-col">
+        <h4>کانون موسیقی</h4>
+        <p>دانشگاه علوم پزشکی اراک</p>
+      </div>
+      <div class="footer-col">
+        <h4>لینک‌های سریع</h4>
+        <a href="index.html">درباره ما</a>
+        <a href="index.html">اخبار</a>
+        <a href="index.html">تماس</a>
+      </div>
+      <div class="footer-col">
+        <h4>شبکه‌های اجتماعی</h4>
+        <a href="#">اینستاگرام</a>
+        <a href="#">تلگرام</a>
+        <a href="#">آپارات</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      © ۱۴۰۴ کانون موسیقی دانشگاه علوم پزشکی اراک
+    </div>
+  </footer>
+
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       
-      // ۱. مدیریت منوی موبایل
-      const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-      const mainNav = document.getElementById('mainNav');
-      const overlay = document.getElementById('overlay');
+      // ============================================
+      // ۱. تغییر تم (شب/روز)
+      // ============================================
+      const themeToggle = document.getElementById('themeToggle');
+      const iconMoon = document.getElementById('iconMoon');
+      const iconSun = document.getElementById('iconSun');
 
-      function toggleMobileMenu() {
-        mainNav.classList.toggle('active');
-        overlay.classList.toggle('active');
+      const savedTheme = localStorage.getItem('theme');
+      const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+      function applyTheme(theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+        if (theme === 'dark') {
+          iconMoon.style.display = 'none';
+          iconSun.style.display = 'block';
+        } else {
+          iconMoon.style.display = 'block';
+          iconSun.style.display = 'none';
+        }
       }
 
-      mobileMenuBtn.addEventListener('click', toggleMobileMenu);
-      overlay.addEventListener('click', toggleMobileMenu);
+      if (savedTheme) {
+        applyTheme(savedTheme);
+      } else {
+        applyTheme(systemDark ? 'dark' : 'light');
+      }
 
-      // ۲. باز و بسته کردن زیرمنوها در موبایل
-      const hasSubmenus = document.querySelectorAll('.has-submenu > a');
+      themeToggle.addEventListener('click', () => {
+        const current = document.documentElement.getAttribute('data-theme');
+        const next = current === 'dark' ? 'light' : 'dark';
+        applyTheme(next);
+        localStorage.setItem('theme', next);
+      });
 
-      hasSubmenus.forEach(link => {
+      // ============================================
+      // ۲. منوی موبایل
+      // ============================================
+      const menuToggle = document.getElementById('menuToggle');
+      const mainNav = document.getElementById('mainNav');
+      const menuOverlay = document.getElementById('menuOverlay');
+
+      function toggleMenu() {
+        mainNav.classList.toggle('open');
+        menuOverlay.classList.toggle('active');
+      }
+
+      menuToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleMenu();
+      });
+      
+      menuOverlay.addEventListener('click', toggleMenu);
+
+      // ============================================
+      // ۳. باز کردن زیرمنو در موبایل با کلیک (چون هاور در موبایل کار نمی‌کند)
+      // ============================================
+      const submenuLinks = document.querySelectorAll('.has-submenu > a');
+      
+      submenuLinks.forEach(link => {
         link.addEventListener('click', (e) => {
           if (window.innerWidth <= 768) {
-            e.preventDefault(); 
+            e.preventDefault(); // جلوگیری از رفتن به لینک
             const parentLi = link.parentElement;
             parentLi.classList.toggle('active');
             
@@ -331,31 +469,6 @@
           }
         });
       });
-
-      // ۳. تغییر تم شب و روز
-      const themeToggle = document.getElementById('themeToggle');
-      
-      const savedTheme = localStorage.getItem('theme') || 'light';
-      document.documentElement.setAttribute('data-theme', savedTheme);
-      updateThemeText(savedTheme);
-
-      themeToggle.addEventListener('click', () => {
-        const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-        const newTheme = isDark ? 'light' : 'dark';
-        
-        document.documentElement.setAttribute('data-theme', newTheme);
-        localStorage.setItem('theme', newTheme);
-        updateThemeText(newTheme);
-      });
-
-      function updateThemeText(theme) {
-        if (theme === 'dark') {
-          themeToggle.textContent = "حالت روز ☀️";
-        } else {
-          themeToggle.textContent = "حالت شب 🌙";
-        }
-      }
-
     });
   </script>
 
